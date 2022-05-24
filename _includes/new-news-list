@@ -34,6 +34,7 @@
         <p class="article-postfix">{{ post.date | date: '%B %d, %Y' }},
         {{ post.collection 
           | replace: "demos", "Demos"
+          | replace: "blogs", "Blogs"
           | replace: "conferences", "Conferences"
           | replace: "news", "News"
           | replace: "path-tracing", "Path Tracing"

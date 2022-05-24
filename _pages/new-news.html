@@ -30,7 +30,43 @@ button.btn {
     margin-right: 10px;
     margin-top: 5px;
 }
-button.btn:hover {
+button.btn:not(.active):hover {
+  //background-color: red;
+}
+/* override hover behavior of active button
+   should really fix button:hover using button:not(.active):hover
+*/
+Qbutton.btn.active:hover {
+    padding: 10px 40px;
+    border: 1px solid #1994c9;
+    border-radius: 20px;
+    background-color: #149ed9;
+    /* font-size: 18px; */
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #fff;
+    box-shadow: inherit;
+    -webkit-transform: inherit;
+    -ms-transform: inherit;
+    transform: inherit;
+}
+button.btn.active:hover {
+    /* border-color: #6abf4b; */
+    /* background-color: #6abf4b; */
+    padding: 10px 40px;
+    border-radius: 20px;
+    /* font-size: 18px; */
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #fff;
+    box-shadow: inherit;
+    -webkit-transform: inherit;
+    -ms-transform: inherit;
+    transform: inherit;
+}
+button.btn.active {
+    border-color: #6abf4b;
+    background-color: #6abf4b;
 }
 div.btnRow {
     display: flex;
@@ -73,6 +109,7 @@ div.label {
     <div class="label">Category:</div>
   <div class="btnRow">
     <button class="btn category active" onclick="filterSelection('category', 'all')"> Show all</button>
+    <button class="btn category" onclick="filterSelection('category', 'blogs')"> Blogs</button>
     <button class="btn category" onclick="filterSelection('category', 'conferences')"> Conferences</button>
     <button class="btn category" onclick="filterSelection('category', 'demos')"> Demos</button>
     <button class="btn category" onclick="filterSelection('category', 'news')"> News</button>
@@ -111,6 +148,7 @@ div.label {
       {% include new-news-list %} 
     {% endfor %} 
   </div>
+  <p id="notice-no-items-found" hidden>No items found.</p>
 
 
 <script>
@@ -160,7 +198,8 @@ for (var i = 0; i < btns.length; i++) {
 
     let details = document.querySelectorAll("details");
     //console.log(details);
-    let firstUnhiddenDetails = true
+    let firstUnhiddenDetails = true;
+    let noFilterResults = true;
     details.forEach(function (details) {
       let allHidden = true;
       let divs = details.querySelectorAll("div.filterDiv");
@@ -179,6 +218,7 @@ for (var i = 0; i < btns.length; i++) {
         details.hidden = true;
       } else {
         console.log(details, "NOT all entries are hidden");
+        noFilterResults = false;
         // open first year with non-hidden items
         if (firstUnhiddenDetails) {
           firstUnhiddenDetails = false;
@@ -188,6 +228,12 @@ for (var i = 0; i < btns.length; i++) {
         details.hidden = false;
       }
     });
+    let notice = document.getElementById("notice-no-items-found");
+    if (noFilterResults) {
+        notice.hidden = false;
+    } else {
+        notice.hidden = true;
+    }
   });
 };
 </script>
