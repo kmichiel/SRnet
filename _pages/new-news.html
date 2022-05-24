@@ -29,6 +29,7 @@ button.btn {
   font-size: 1.1em;
     margin-right: 10px;
     margin-top: 5px;
+        position: relative;
 }
 button.btn:not(.active):hover {
   //background-color: red;
@@ -79,7 +80,7 @@ div.btnRow {
 button.active {
   //background-color: red;
 }
-button.active:before {
+Qbutton.active:before {
   content:  "\2713 ";
   font-weight: 900;
   font-family: 'Cisco Sans TT', sans-serif;
@@ -104,21 +105,32 @@ div.label {
     letter-spacing: 0.5px;
     font-weight: 500;
 }
+button.btn .fa-check {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    color: #fff;
+    font-weight: normal;
+	display: none;
+}
+button.btn.active .fa-check {
+	display: block;
+}
 </style>
 <div id="btnContainer">
     <div class="label">Category:</div>
   <div class="btnRow">
-    <button class="btn category active" onclick="filterSelection('category', 'all')"> Show all</button>
-    <button class="btn category" onclick="filterSelection('category', 'blogs')"> Blogs</button>
-    <button class="btn category" onclick="filterSelection('category', 'conferences')"> Conferences</button>
-    <button class="btn category" onclick="filterSelection('category', 'demos')"> Demos</button>
-    <button class="btn category" onclick="filterSelection('category', 'news')"> News</button>
+    <button class="btn category active" onclick="filterSelection('category', 'all')"><i class="fa fa-check"></i> Show all</button>
+    <button class="btn category" onclick="filterSelection('category', 'blogs')"><i class="fa fa-check"></i> Blogs</button>
+    <button class="btn category" onclick="filterSelection('category', 'conferences')"><i class="fa fa-check"></i> Conferences</button>
+    <button class="btn category" onclick="filterSelection('category', 'demos')"><i class="fa fa-check"></i> Demos</button>
+    <button class="btn category" onclick="filterSelection('category', 'news')"><i class="fa fa-check"></i> News</button>
   </div>
     <div class="label">Technology:</div>
   <div class="btnRow">
-    <button class="btn technology active" onclick="filterSelection('technology', 'all')"> Show all</button>
-    <button class="btn technology" onclick="filterSelection('technology', 'SRv6')"> SRv6</button>
-    <button class="btn technology" onclick="filterSelection('technology', 'SRMPLS')"> SR-MPLS</button>
+	  <button class="btn technology active" onclick="filterSelection('technology', 'all')"><i class="fa fa-check"></i> Show all</button>
+	  <button class="btn technology" onclick="filterSelection('technology', 'SRv6')"><i class="fa fa-check"></i> SRv6</button>
+	  <button class="btn technology" onclick="filterSelection('technology', 'SRMPLS')"><i class="fa fa-check"></i> SR-MPLS</button>
   </div>
 </div>
 
