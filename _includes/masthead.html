@@ -2,8 +2,8 @@
   <nav>
       <a href="{{ '/' | relative_url }}" ><img src="{{ site.logo | relative_url }}" class="nav-logo" id="nav-logo" alt="Segment-Routing brand logo"></a>
       <div class="navbar" id="mylinks">
-            {% if site.data.navigation.main[0] %}
-              {% for item in site.data.navigation.main %}
+            {% if site.data.newnavigation.main[0] %}
+              {% for item in site.data.newnavigation.main %}
                 {% if item.subfolderitems[0] %}
                   <div class="dropdown nav-link">
                     <label class="underline">{{ item.title }} <i class="fa fa-caret-down font-awesome-icon"></i>

@@ -1,0 +1,23 @@
+# main links links
+main:
+
+  - title: "News"
+    url: "new-news"
+
+  - title: "Tutorials"
+    url: "tutorials"
+
+  - title: "Path Tracing"
+    url: "path-tracing"
+  
+  - title: "IETF" 
+    url: "ietf"
+
+  - title: "Open Software"
+    url: "open-software"
+
+  - title: "Scientific Papers"
+    url: "scientific-papers"
+
+  - title: "Search"
+    url: "search"

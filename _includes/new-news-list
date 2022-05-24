@@ -4,30 +4,43 @@
   {% assign title = post.title %}
 {% endif %}
 
-<div class="accordion-item conf filterDiv {{ post.collection }}">
+{% capture my_url %}
+  {% if post.source-url  %}
+    {{ post.source-url }}
+  {% elsif post.eurl %}
+    {{ post.eurl | relative_url }}
+  {% elsif post.url %}
+    {{ post.url | relative_url }}
+  {% endif %}
+{% endcapture %}
+
+<div class="accordion-item conf filterDiv {{ post.collection }} {{ post.technology | split: ", " | join: " " }}">
     <article class="conf-item" itemscope itemtype="http://schema.org/CreativeWork">
       <div class="conf-image">
-        {% if post.source-url  %}
-          <a href="{{ post.source-url }}" rel="permalink">
-        {% elsif post.eurl %}
-          <a href="{{ post.eurl | relative_url }}" rel="permalink">
-        {% elsif post.url %}
-          <a href="{{ post.url | relative_url }}" rel="permalink">
+        <a href="{{ my_url }}" rel="permalink">
+        {% if post.header.teaser %}
+          <img class="conf-img" src="{{ post.header.teaser | relative_url }}">
+        {% else %}
+          <img class="conf-img" src="{{ post.teaser | relative_url }}">
         {% endif %}
-      {% if post.header.teaser %}
-        <img class="conf-img" src="{{ post.header.teaser | relative_url }}">
-      {% else %}
-        <img class="conf-img" src="{{ post.teaser | relative_url }}">
-      {% endif %}
       </div>
       <div class="conf-description">
-        <h3 class="news-title" itemprop="headline">
-          {{ title }}
-        </h3>
-      </a>
-      <p class="article-excerpt"> {{ post.excerpt }} </p>
-      {{ post.date | date: '%B %d, %Y' }}
-      - {{ post.collection }}
+        <a href="{{ my_url }}" rel="permalink">
+          <h3 class="news-title" itemprop="headline">
+            {{ title }}
+          </h3>
+        </a>
+        <p class="article-excerpt"> {{ post.excerpt }} </p>
+        <p class="article-postfix">{{ post.date | date: '%B %d, %Y' }},
+        {{ post.collection 
+          | replace: "demos", "Demos"
+          | replace: "conferences", "Conferences"
+          | replace: "news", "News"
+          | replace: "path-tracing", "Path Tracing"
+        }}{% if post.technology %}, {{ post.technology 
+          | replace: "SRMPLS", "SR-MPLS" }}
+        {% endif %}
+        </p>
       </div>
     </article>
 </div> 
