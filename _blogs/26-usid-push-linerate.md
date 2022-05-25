@@ -1,7 +1,7 @@
 ---
 published: true
 breadnav: true
-date: '2023-03-29 10:00 -0700'
+date: '2022-03-29 10:00 -0700'
 title: 'BLOG SRv6 ultra-scale - Imposition of 26 SRv6 uSIDs at Linerate'
 author: 'Kris Michielsen, Cisco'
 technology: 'SRv6'
