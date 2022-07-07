@@ -6,6 +6,7 @@ $(document).ready(function(){
 	    $(".hide-on-tablet").toggleClass('show');
 	    $(".hide-on-portrait").toggleClass('show');
 	    $(".hide-on-mobile").toggleClass('show');
+	    $(".hide-on-xxs").toggleClass('show');
 	    $(".social").toggleClass('show');
 	});
 }); 
