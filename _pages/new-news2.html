@@ -159,9 +159,9 @@ button.btn.active .fa-check {
 
 <select id="filterTechnology" onchange="{console.log('@@', this.options[this.selectedIndex]);if(this.options[this.selectedIndex].onclick != null){this.options[this.selectedIndex].onclick(this);}}" onfocus="this.selectedIndex=-1;this.blur();">
 	<option value='' selected disabled>Filter...</option>
-	<option value='Show All' onclick="{doSomethingElse(this);}">Show All</option>
-	<option value='SRv6' onclick="{doSomethingElse(this);}">SRv6</option>
-	<option value='SR MPLS' onclick="{doSomethingElse(this);}">SR MPLS</option>
+	<option value='Show All' onclick="{doFilter(this);}">Show All</option>
+	<option value='SRv6' onclick="{doFilter(this);}">SRv6</option>
+	<option value='SR MPLS' onclick="{doFilter(this);}">SR MPLS</option>
 </select>
 
 <div id='chipContainerTechnology'>
@@ -170,83 +170,56 @@ button.btn.active .fa-check {
 
 <select id="filterCategory" onchange="{console.log('##', this.options[this.selectedIndex]);if(this.options[this.selectedIndex].onclick != null){this.options[this.selectedIndex].onclick(this);}}" onfocus="this.selectedIndex=-1;this.blur();">
 	<option value='' selected disabled>Filter...</option>
-	<option value='Show All' onclick="{doSomethingElse(this);}">Show All</option>
-	<option value='Blogs' onclick="{doSomethingElse(this);}">Blogs</option>
-	<option value='News' onclick="{doSomethingElse(this);}">News</option>
-	<option value='Conferences' onclick="{doSomethingElse(this);}">Conferences</option>
+	<option value='Show All' onclick="{doFilter(this);}">Show All</option>
+	<option value='Blogs' onclick="{doFilter(this);}">Blogs</option>
+	<option value='News' onclick="{doFilter(this);}">News</option>
+	<option value='Conferences' onclick="{doFilter(this);}">Conferences</option>
 </select>
 
 <div id='chipContainerCategory'>
 	Here are the Category chips</br>
 </div>
-	<script type='text/javascript'>
-			var myTechnologyList=[];
-			var myCategoryList=[];
 
-Array.prototype.addRemove = function (value) {
-	    const idx = this.indexOf(value);
-	    if (idx < 0) {
-		    this.push(value);
-	    } else {
-                    this.splice(idx, 1);
-	    }
-	return this;
-}
-	// add value if not in array, else remove
-		function doSomethingElse(el) {
-			console.log("<doSomethingElse: ", el);
+	<script>
+
+const chipContainerCategory = document.getElementById("chipContainerCategory");
+const chipContainerTechnology = document.getElementById("chipContainerTechnology");
+
+function doFilter(el) {
+	console.log("doFilter: ", el);
+	var chipContainer = chipContainerTechnology;
 	if (el.parentNode.id === 'filterCategory') {
-			if (el.value === 'Show All') {
-				myCategoryList = [];
-			} else {
-				myCategoryList.addRemove(el.value);
-			}
-			console.log("list:", myCategoryList);
-			// deselect the option
-			el.parentNode.selectedIndex=0;
-			showChips(el.parentNode.id, myCategoryList);
-	} else {
-			if (el.value === 'Show All') {
-				myTechnologyList = [];
-			} else {
-				myTechnologyList.addRemove(el.value);
-			}
-			console.log("list:", myTechnologyList);
-			// deselect the option
-			el.parentNode.selectedIndex=0;
-			showChips(el.parentNode.id, myTechnologyList);
+		chipContainer = chipContainerCategory;
 	}
-		}
+	// if el already in chips, remove it
+	// if el not yet in chips, add it
+	// if el is "show all", remove all chips
 
-function showChips(id, arr) {
-	// look at what there is now
-	var chipContainer;
-	if (id === 'filterCategory') {
-		chipContainer = document.getElementById("chipContainerCategory")
-	} else {
-		chipContainer = document.getElementById("chipContainerTechnology")
-	}
-	const collection = chipContainer.children;
-	let chipsShownArr = [];
-	for (let i = collection.length - 1; i >= 0; i--) {
-	if(!arr.includes(collection[i].text)) {
-chipContainer.removeChild(collection[i]);
-	} else {
-		chipsShownArr.push(collection[i].text)
-	}
-}
-// look at what is missing
-	arr.forEach(item => {
-		if(!chipsShownArr.includes(item)) {
-let newButton = document.createElement('button');
-newButton.setAttribute("id", item);
-newButton.className = "myClassName";
-newButton.innerText = item;
-newButton.addEventListener("click", clickMe);
-chipContainer.appendChild(newButton);
+	// first remove the chip if present
+	const chips = chipContainer.children;
+	console.log("chips ", chips, " ", chips.length);
+	for (let i = chips.length - 1; i >= 0; i--) {
+		if (chips[i].localName === "button") {
+			continue;
 		}
-	})
+		console.log("loop chips ", chips[i].text);
+		if(el.value === 'Show All' || chips[i].text === el.value) {
+			console.log("removing chip ", chips[i].text);
+			chipContainer.removeChild(chips[i]);
+		}
+	}
+	// if el.value != 'Show All', add the chip
+	if(el.value !== 'Show All') {
+		console.log("adding chip ", el.value);
+		let newButton = document.createElement('button');
+		newButton.setAttribute("id", el.value);
+		newButton.className = "myClassName";
+		newButton.innerText = el.value;
+		newButton.addEventListener("click", clickMe);
+		chipContainer.appendChild(newButton);
+	}
 }
+
 function clickMe(){
     console.log("Hi! I  am a new Button.");
 }
