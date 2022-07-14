@@ -12,8 +12,8 @@ jQuery(function() {
       this.field('link');
     });
 
-//    var base_url =  document.getElementById('base_url').getAttribute("value")
-    window.data = $.getJSON('/search_data.json');
+    var base_url =  document.getElementById('base_url').getAttribute("value")
+    window.data = $.getJSON( base_url + '/search_data.json');
   
     window.data.then(function(loaded_data){
       $.each(loaded_data, function(index, value){
