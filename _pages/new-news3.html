@@ -337,7 +337,7 @@ button {
   <div class="label">Category:</div>
   <div class="btnRow">
    <div class="select">
-    <select id="filterCategory" onchange="{console.log('##', this.options[this.selectedIndex]);if(this.options[this.selectedIndex].onclick != null){this.options[this.selectedIndex].onclick(this);}}" onfocus="this.selectedIndex=-1;this.blur();">
+    <select id="filterCategory" onchange="{console.log('##', this.options[this.selectedIndex]);if(this.options[this.selectedIndex].onclick != null){this.options[this.selectedIndex].onclick(this);}}" onfocus="this.selectedIndex=-1;" onblur="this.selectedIndex=0; console.log('blurred it ', this);">
 	<option value='' selected disabled>Filter...</option>
 	<option value='Show All' onclick="{doFilter(this);}">Show All</option>
 	<option value='Demos' onclick="{doFilter(this);}">Demos</option>
