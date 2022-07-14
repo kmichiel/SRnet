@@ -14,7 +14,7 @@
   {% endif %}
 {% endcapture %}
 
-<div class="accordion-item conf filterDiv {{ post.collection }} {{ post.technology | split: ", " | join: " " }}">
+<div class="accordion-item filterDiv {{ post.collection }} {{ post.technology | split: ", " | join: " " }} show">
     <article class="conf-item" itemscope itemtype="http://schema.org/CreativeWork">
       <div class="conf-image">
         <a href="{{ my_url }}" rel="permalink">
