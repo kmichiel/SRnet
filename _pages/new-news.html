@@ -77,15 +77,11 @@ div.btnRow {
   font-family: 'Cisco Sans TT', sans-serif;
   font-size: 1.1em;
 }
+div.btnRow > * {
+    margin-bottom: 10px;
+}
 button.active {
   //background-color: red;
-}
-Qbutton.active:before {
-  content:  "\2713 ";
-  font-weight: 900;
-  font-family: 'Cisco Sans TT', sans-serif;
-  font-size: 1.1em;
-  line-height: 0em; /* don't make this character expand button height */
 }
 #btnContainer {
     max-width: 80%;
@@ -117,22 +113,409 @@ button.btn.active .fa-check {
 	display: block;
 }
 </style>
+
+<style>
+button.chip-btn{
+  cursor:pointer;
+}
+.chip-group{
+  display:flex;
+  flex-wrap:wrap;
+}
+.chip.chip-checkbox > .chip-add-icon::after {
+  content:"add"
+}
+.chip.chip-checkbox.active > .chip-add-icon::after {
+  content:"done"
+}
+.chip > * {
+  margin-right:2px;
+  margin-left:2px;
+  /* color: #757373; */
+}
+.chip input {
+  display: none;
+}
+.chip.chip-checkbox,
+.chip.chip-toggle,
+.chip.clickable{
+  cursor: pointer;
+}
+.chip.active {
+  background-color: #d3d2d2;
+  border-color:#c3c2c2;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12)
+}
+.chip:hover, .chip:focus {
+  background-color: #e3e2e2;
+}
+.chip:active:focus{
+  background-color: #d3d2d2;  
+}
+.chip button{
+  border:none;
+  margin-top:0;
+  margin-bottom:0;
+  padding:0;
+  background:none;
+  display:inline-flex;
+}
+.chip {
+  transition: all 0.3s ease-in-out;
+  background-color: #fff;
+  border-radius: 30px;
+  border: 1px solid #d3d2d2;
+  display: inline-flex;
+  align-items:center;
+  padding: 4px 6px 4px 6px;
+  margin-right:6px;
+  margin-bottom:6px;
+    padding: 10px 40px;
+    border: 1px solid #1994c9;
+    border-radius: 20px;
+    background-color: #149ed9;
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #fff;
+}
+.chip i.material-icons {
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+button.chip-btn:hover {
+    border-color: inherit;
+    background-color: inherit;
+    box-shadow: inherit;
+    -webkit-transform: inherit;
+    -ms-transform: inherit;
+    transform: inherit;
+}
+</style>
+
+<style>
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+//$glass: rgba(255, 255, 255, 0.2);
+//$glass-icon: rgba(255, 255, 255, 0.3);
+//$gradient: linear-gradient(35deg, red, purple);
+//$option: #320a28;
+
+body {
+  background: purple;
+}
+
+.chip-btn2 {
+/*  background: url(https://upload.wikimedia.org/wikipedia/commons/c/c1/High-contrast-dialog-close.svg)
+      no-repeat right 0.8em center / 1.4em,
+    linear-gradient(to left, rgba(255, 255, 255, 0.0) 3em, #149ed9 3em);
+  background: url(images/white-x.svg)
+      no-repeat right 0.8em center / 1.4em,
+    linear-gradient(to left, #149ed9 3em, #149ed9 3em);
+ */
+    align-items: center;
+    display: flex;
+    padding: 10px 1em 10px 40px;
+}
+.chip-btn2 span {
+	margin-right: 1em;
+}
+.chip-btn2 img {
+	height: 1em;
+}
+.chip-btn2 img:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+button.chip-btn2:hover {
+    border-color: #1994c9;
+    background-color: #149ed9;
+    box-shadow: inherit;
+    -webkit-transform: inherit;
+    -ms-transform: inherit;
+    transform: inherit;
+}
+
+/* <select> styles */
+select {
+  /* Reset */
+  appearance: none;
+  border: 0;
+  /* outline: 0; */
+  /* font: inherit; */
+  /* Personalize */
+  /* width: 20em; */
+  /* height: 3em; */
+  padding: 0 4em 0 1em;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg)
+      no-repeat right 0.8em center / 1.4em,
+    linear-gradient(to left, rgba(255, 255, 255, 0.0) 3em, #149ed9 3em);
+  color: white;
+  border-radius: 0.25em;
+  /*box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);*/
+  cursor: pointer;
+
+  font-family: 'Cisco Sans TT', sans-serif;
+  font-size: 1.1em;
+  margin-right: 10px;
+  /* margin-top: 5px; */
+  position: relative;
+
+  padding: 10px 40px;
+  border: 1px solid #1994c9;
+  border-radius: 20px;
+  background-color: #149ed9;
+  /* font-size: 18px; */
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #fff;
+  /* text-align: center; */
+  align-items: flex-start;
+  display: block;
+  /* height: 100%;*/
+}
+/* <option> colors */
+option {
+  color: black;
+  background-color: white;
+}
+/* Remove focus outline */
+option:focus {
+  outline: none;
+}
+/* Remove IE arrow */
+option::-ms-expand {
+  display: none;
+}
+
+/* Button */
+button.btn {
+    font-family: 'Cisco Sans TT', sans-serif;
+    font-size: 1.1em;
+    margin-right: 10px;
+    margin-top: 0px; /* is 5px in button css */
+    position: relative;
+}
+.btn {
+    float: left;
+}
+button {
+    padding: 10px 40px;
+    border: 1px solid #1994c9;
+    border-radius: 20px;
+    background-color: #149ed9;
+    /* font-size: 18px; */
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #fff;
+    /* height: 100%;*/
+    margin-bottom: 10px;
+}
+</style>
 <div id="btnContainer">
-    <div class="label">Category:</div>
+  <div class="label">Technology:</div>
   <div class="btnRow">
-    <button class="btn category active" onclick="filterSelection('category', 'all')"><i class="fa fa-check"></i> Show all</button>
-    <button class="btn category" onclick="filterSelection('category', 'blogs')"><i class="fa fa-check"></i> Blogs</button>
-    <button class="btn category" onclick="filterSelection('category', 'conferences')"><i class="fa fa-check"></i> Conferences</button>
-    <button class="btn category" onclick="filterSelection('category', 'demos')"><i class="fa fa-check"></i> Demos</button>
-    <button class="btn category" onclick="filterSelection('category', 'news')"><i class="fa fa-check"></i> News</button>
+   <div class="select">
+    <select id="filterTechnology" onchange="{console.log('@@', this.options[this.selectedIndex]);if(this.options[this.selectedIndex].onclick != null){this.options[this.selectedIndex].onclick(this);}}" onfocus="this.selectedIndex=-1;" onblur="this.selectedIndex=0; console.log('blurred it ', this);">
+	<option value='' selected disabled>Filter...</option>
+	<option value='Show All' onclick="{doFilter(this);}">Show All</option>
+	<option value='SRv6' onclick="{doFilter(this);}">SRv6</option>
+	<option value='SR MPLS' onclick="{doFilter(this);}">SR MPLS</option>
+    </select>
+   </div>
+
+    <div id='chipContainerTechnology'>
+	<!-- add chips... -->
+    </div>
   </div>
-    <div class="label">Technology:</div>
+
+  <div class="label">Category:</div>
   <div class="btnRow">
-	  <button class="btn technology active" onclick="filterSelection('technology', 'all')"><i class="fa fa-check"></i> Show all</button>
-	  <button class="btn technology" onclick="filterSelection('technology', 'SRv6')"><i class="fa fa-check"></i> SRv6</button>
-	  <button class="btn technology" onclick="filterSelection('technology', 'SRMPLS')"><i class="fa fa-check"></i> SR-MPLS</button>
+   <div class="select">
+    <select id="filterCategory" onchange="{console.log('##', this.options[this.selectedIndex]);if(this.options[this.selectedIndex].onclick != null){this.options[this.selectedIndex].onclick(this);}}" onfocus="this.selectedIndex=-1;" onblur="this.selectedIndex=0; console.log('blurred it ', this);">
+	<option value='' selected disabled>Filter...</option>
+	<option value='Show All' onclick="{doFilter(this);}">Show All</option>
+	<option value='Demos' onclick="{doFilter(this);}">Demos</option>
+	<option value='Blogs' onclick="{doFilter(this);}">Blogs</option>
+	<option value='News' onclick="{doFilter(this);}">News</option>
+	<option value='Conferences' onclick="{doFilter(this);}">Conferences</option>
+    </select>
+   </div>
+
+    <div id='chipContainerCategory'>
+	<!-- add chips here... -->
+    </div>
   </div>
-</div>
+</div> <!-- end btn container -->
+
+
+	<script>
+
+
+function doFilter(el) {
+	const chipContainerCategory = document.getElementById("chipContainerCategory");
+	const chipContainerTechnology = document.getElementById("chipContainerTechnology");
+	console.log("doFilter: ", el);
+	var chipContainer = chipContainerTechnology;
+	if (el.parentNode.id === 'filterCategory') {
+		chipContainer = chipContainerCategory;
+	}
+	// if el already in chips, remove it
+	// if el not yet in chips, add it
+	// if el is "show all", remove all chips
+
+	const isRemoved = delChip(chipContainer, el.value);
+	if (!isRemoved && el.value !== 'Show All') {
+		addChip(chipContainer, el.value);
+	}
+	el.parentNode.selectedIndex=0;
+	el.blur();
+}
+
+function addChip(chipContainer, elValue) {
+	console.log("chipContainer.id=", chipContainer.id);
+	console.log("adding chip to ", chipContainer, " with value ", elValue);
+	let newChip = document.createElement('button');
+	newChip.setAttribute("id", elValue);
+	newChip.className = "btn";
+	newChip.classList.add("chip-btn2");
+	//newChip.innerText = elValue;
+	//newChip.innerHTML = elValue + '<i class = "material-icons">cancel</i></button>';
+	newChip.innerHTML = '<span>' + elValue + '</span><img src="images/white-x.svg">';
+	newChip.addEventListener("click", handleChipClick);
+	chipContainer.appendChild(newChip);
+	applyFilter();
+}
+
+function delChip(chipContainer, elValue) {
+	console.log("chipContainer.id=", chipContainer.id);
+	console.log("deleting chip of ", chipContainer, " with value ", elValue);
+	let isRemoved=false;
+	// first remove the chip if present
+	const chips = chipContainer.children;
+	console.log("chips ", chips, " ", chips.length);
+	for (let i = chips.length - 1; i >= 0; i--) {
+		if (chips[i].localName !== "button") {
+			// there should not be any other elements
+			continue;
+		}
+		console.log("loop chips ", chips[i].innerText);
+		// don't break out to let "Show All" clean up all chips
+		if(elValue === 'Show All' || chips[i].innerText === elValue) {
+			console.log("removing chip ", chips[i].innerText);
+			chipContainer.removeChild(chips[i]);
+			isRemoved=true;
+		}
+	}
+	if (isRemoved) {
+		// handle new filter setting
+		applyFilter();
+	}
+	return isRemoved;
+}
+
+function handleChipClick(e){
+	console.log("handleChipClick ", e);
+	console.log("Removing chip", e.target, e, e.target.tagName);
+	console.log("Current Target=", e.currentTarget);
+	if (e.target.tagName !== 'IMG') {
+		// if the image is not clicked, do nothing
+		return;
+	}
+	const chipContainer = e.currentTarget.parentNode;
+	// value is in the span element
+	const span = e.currentTarget.querySelectorAll('span')[0];
+	console.log("span=", span);
+	const elValue = span.innerText;
+	console.log("elValue=", elValue);
+	const result = delChip(chipContainer, elValue);
+	return result;
+}
+
+function applyFilter() {
+	console.log("exec applyFilter");
+	// which chips are present per chipContainer?
+	const chipContainerCategory = document.getElementById("chipContainerCategory");
+	const chipContainerTechnology = document.getElementById("chipContainerTechnology");
+	let techList =[];
+	Array.from(chipContainerTechnology.children).forEach(function (chip) {
+		techList.push(chip.innerText.toLowerCase().replace(/\s/g, ''));
+	})
+	console.log("techlist=", techList);
+	let catList =[];
+	Array.from(chipContainerCategory.children).forEach(function (chip) {
+		catList.push(chip.innerText.toLowerCase().replace(/\s/g, ''));
+	})
+	console.log("catlist=", catList);
+
+	// the actual filtering
+    	let details = document.querySelectorAll("details");
+	let firstUnhiddenDetails = true;
+	// assume no entry passes the filter
+	let noFilterResults = true;
+	details.forEach(function (details) {
+		// keep track if all entries are hidden, we initially assume they are
+		let allHidden = true;
+		// all items have filterDiv class
+		let divs = details.querySelectorAll("div.filterDiv");
+		for (let div of divs) {
+			let passedTech = false || techList.length === 0;
+			let passedCat = false || catList.length === 0;
+			// does it have any of the techList classes?
+			techList.forEach(function (tech) {
+				if (div.className.toLowerCase().indexOf(tech) > -1) {
+					passedTech = true;
+				}
+			})
+			// does it have any of the catList classes?
+			catList.forEach(function (cat) {
+				if (div.className.toLowerCase().indexOf(cat) > -1) {
+					passedCat = true;
+				}
+			})
+			// passedCat can only be true if passedTech is also true
+			if (passedTech && passedCat) {
+				div.classList.add("show");
+				// at least one entry passed the filter
+				allHidden = false;
+			} else {
+				div.classList.remove("show");
+			}
+		}
+		if (allHidden) {
+			// console.log(details, "ALL entries are hidden");
+			// hide details as well
+			details.hidden = true;
+		} else {
+			console.log(details, "NOT all entries are hidden");
+			noFilterResults = false;
+			// open first year with non-hidden items
+			if (firstUnhiddenDetails) {
+				firstUnhiddenDetails = false;
+				details.setAttribute("open", "");
+			}
+			details.style.display = "";
+			details.hidden = false;
+		}
+	});
+	let notice = document.getElementById("notice-no-items-found");
+	if (noFilterResults) {
+		notice.hidden = false;
+	} else {
+		notice.hidden = true;
+	}
+}
+
+window.onload = function(){
+	applyFilter();
+};
+	</script>
+
 
 {% capture written_year %}'None'{% endcapture %}
 {% assign all_content = site.documents 
@@ -162,90 +545,3 @@ button.btn.active .fa-check {
   </div>
   <p id="notice-no-items-found" hidden>No items found.</p>
 
-
-<script>
-//console.log("BEGIN");
-let filter = {"category": "all", "technology": "all"};
-filterSelection("technology", "all");
-filterSelection("category", "all");
-
-function filterSelection(type, value) {
-  var x, i;
-  x = document.getElementsByClassName("filterDiv");
-  if (value == "all") { value = ""; }
-  // set global filter
-  filter[type] = value;
-  //console.log(filter);
-  // Add the "show" class (display:block) to the filtered elements,
-  // and remove the "show" class from the elements that are not selected
-  for (i = 0; i < x.length; i++) {
-    // w3RemoveClass(x[i], "show");
-    x[i].classList.remove("show");
-    //console.log(x[i]);
-    if ((x[i].className.indexOf(filter["technology"]) > -1) 
-      && (x[i].className.indexOf(filter["category"]) > -1)) {
-        x[i].classList.add("show");
-    }
-  }
-}
-
-function hasClass(element, clsName) {
-  return (" " + element.className + " ").indexOf(" " + clsName + " ") > -1;
-}
-
-// Add active class to the current control button (highlight it)
-var btnContainer = document.getElementById("btnContainer");
-var btns = btnContainer.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function() {
-    if (this.className.indexOf("category") > -1) {
-      var current = document.getElementsByClassName("btn category active");
-      current[0].className = current[0].className.replace(" active", "");
-    }
-    if (this.className.indexOf("technology") > -1) {
-      var current = document.getElementsByClassName("btn technology active");
-      current[0].className = current[0].className.replace(" active", "");
-    }
-    this.className += " active";
-
-    let details = document.querySelectorAll("details");
-    //console.log(details);
-    let firstUnhiddenDetails = true;
-    let noFilterResults = true;
-    details.forEach(function (details) {
-      let allHidden = true;
-      let divs = details.querySelectorAll("div.filterDiv");
-      // .some() returns true as soon as a callback returns true
-      // .every() returns false as soon as a callback returns false
-      // return true if all entries have class "show"
-      for (let div of divs) {
-        if (hasClass(div, "show")) {
-          allHidden = false;
-          break;
-        }
-      }
-      if (allHidden) {
-        // console.log(details, "ALL entries are hidden");
-        // hide details as well
-        details.hidden = true;
-      } else {
-        console.log(details, "NOT all entries are hidden");
-        noFilterResults = false;
-        // open first year with non-hidden items
-        if (firstUnhiddenDetails) {
-          firstUnhiddenDetails = false;
-          details.setAttribute("open", "");
-	}
-        details.style.display = "";
-        details.hidden = false;
-      }
-    });
-    let notice = document.getElementById("notice-no-items-found");
-    if (noFilterResults) {
-        notice.hidden = false;
-    } else {
-        notice.hidden = true;
-    }
-  });
-};
-</script>
