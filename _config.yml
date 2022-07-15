@@ -26,6 +26,10 @@ logo                     : "images/sr-logo-blue-160x160.png"
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 200
 
+# cookie consent
+after_footer_scripts     :
+  - /assets/js/cookie-consent.js
+
 # SEO Related
 google_site_verification :
 bing_site_verification   :
