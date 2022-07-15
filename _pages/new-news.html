@@ -252,7 +252,7 @@ select {
   /* width: 20em; */
   /* height: 3em; */
   padding: 0 4em 0 1em;
-  background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg)
+  background: url(images/Caret_down_font_awesome_whitevariation.svg)
       no-repeat right 0.8em center / 1.4em,
     linear-gradient(to left, rgba(255, 255, 255, 0.0) 3em, #149ed9 3em);
   color: white;
@@ -360,7 +360,7 @@ button {
 function doFilter(el) {
 	const chipContainerCategory = document.getElementById("chipContainerCategory");
 	const chipContainerTechnology = document.getElementById("chipContainerTechnology");
-	console.log("doFilter: ", el);
+	//console.log("doFilter: ", el);
 	var chipContainer = chipContainerTechnology;
 	if (el.parentNode.id === 'filterCategory') {
 		chipContainer = chipContainerCategory;
@@ -378,14 +378,12 @@ function doFilter(el) {
 }
 
 function addChip(chipContainer, elValue) {
-	console.log("chipContainer.id=", chipContainer.id);
-	console.log("adding chip to ", chipContainer, " with value ", elValue);
+	//console.log("chipContainer.id=", chipContainer.id);
+	//console.log("adding chip to ", chipContainer, " with value ", elValue);
 	let newChip = document.createElement('button');
 	newChip.setAttribute("id", elValue);
 	newChip.className = "btn";
 	newChip.classList.add("chip-btn2");
-	//newChip.innerText = elValue;
-	//newChip.innerHTML = elValue + '<i class = "material-icons">cancel</i></button>';
 	newChip.innerHTML = '<span>' + elValue + '</span><img src="images/white-x.svg">';
 	newChip.addEventListener("click", handleChipClick);
 	chipContainer.appendChild(newChip);
@@ -393,21 +391,21 @@ function addChip(chipContainer, elValue) {
 }
 
 function delChip(chipContainer, elValue) {
-	console.log("chipContainer.id=", chipContainer.id);
-	console.log("deleting chip of ", chipContainer, " with value ", elValue);
+	//console.log("chipContainer.id=", chipContainer.id);
+	//console.log("deleting chip of ", chipContainer, " with value ", elValue);
 	let isRemoved=false;
 	// first remove the chip if present
 	const chips = chipContainer.children;
-	console.log("chips ", chips, " ", chips.length);
+	//console.log("chips ", chips, " ", chips.length);
 	for (let i = chips.length - 1; i >= 0; i--) {
 		if (chips[i].localName !== "button") {
 			// there should not be any other elements
 			continue;
 		}
-		console.log("loop chips ", chips[i].innerText);
+		//console.log("loop chips ", chips[i].innerText);
 		// don't break out to let "Show All" clean up all chips
 		if(elValue === 'Show All' || chips[i].innerText === elValue) {
-			console.log("removing chip ", chips[i].innerText);
+			//console.log("removing chip ", chips[i].innerText);
 			chipContainer.removeChild(chips[i]);
 			isRemoved=true;
 		}
@@ -420,9 +418,9 @@ function delChip(chipContainer, elValue) {
 }
 
 function handleChipClick(e){
-	console.log("handleChipClick ", e);
-	console.log("Removing chip", e.target, e, e.target.tagName);
-	console.log("Current Target=", e.currentTarget);
+	//console.log("handleChipClick ", e);
+	//console.log("Removing chip", e.target, e, e.target.tagName);
+	//console.log("Current Target=", e.currentTarget);
 	if (e.target.tagName !== 'IMG') {
 		// if the image is not clicked, do nothing
 		return;
@@ -430,9 +428,9 @@ function handleChipClick(e){
 	const chipContainer = e.currentTarget.parentNode;
 	// value is in the span element
 	const span = e.currentTarget.querySelectorAll('span')[0];
-	console.log("span=", span);
+	//console.log("span=", span);
 	const elValue = span.innerText;
-	console.log("elValue=", elValue);
+	//console.log("elValue=", elValue);
 	const result = delChip(chipContainer, elValue);
 	return result;
 }
@@ -446,12 +444,12 @@ function applyFilter() {
 	Array.from(chipContainerTechnology.children).forEach(function (chip) {
 		techList.push(chip.innerText.toLowerCase().replace(/\s/g, ''));
 	})
-	console.log("techlist=", techList);
+	//console.log("techlist=", techList);
 	let catList =[];
 	Array.from(chipContainerCategory.children).forEach(function (chip) {
 		catList.push(chip.innerText.toLowerCase().replace(/\s/g, ''));
 	})
-	console.log("catlist=", catList);
+	//console.log("catlist=", catList);
 
 	// the actual filtering
     	let details = document.querySelectorAll("details");
@@ -492,7 +490,7 @@ function applyFilter() {
 			// hide details as well
 			details.hidden = true;
 		} else {
-			console.log(details, "NOT all entries are hidden");
+			//console.log(details, "NOT all entries are hidden");
 			noFilterResults = false;
 			// open first year with non-hidden items
 			if (firstUnhiddenDetails) {
