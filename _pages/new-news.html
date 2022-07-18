@@ -516,6 +516,12 @@ window.onload = function(){
 
 
 {% capture written_year %}'None'{% endcapture %}
+{% comment %}
+  collect the list of all documents
+  and filter out the unusable pages and OS, SP, and TOI pages
+  filter out any duplicates
+  sort in reverse chronological order
+{% endcomment %}
 {% assign all_content = site.documents 
 | where_exp:"item", "item.id.size"
 | where_exp:"item", "item.date"
