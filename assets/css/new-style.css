@@ -67,8 +67,8 @@ button:hover {
 }
 .hero-block {
   display: block;
-  padding-top: 115px;
-  padding-bottom: 115px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -1045,7 +1045,7 @@ a.publication-link {
 }
 /* Scientific Paper Page */
 .container.accordion {
-  padding: 80px 0;
+  padding: 20px 0;
 }
 summary {
   padding-left: 20px;
