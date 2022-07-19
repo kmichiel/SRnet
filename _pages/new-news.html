@@ -15,6 +15,7 @@ technology: "SRv6"
 type: "News"
 description: "Discover the latest news on Segment Routing"
 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet"/>
 
 <style>
 .filterDiv {
@@ -83,9 +84,12 @@ div.btnRow > * {
 button.active {
   //background-color: red;
 }
+#filterContainer {
+    /*max-width: 80%;*/
+    /*margin: auto;*/
+}
 #btnContainer {
-    max-width: 80%;
-    margin: auto;
+    margin-left: 2em;
 }
 div.label {
     margin: 5px 5px 0 0;
@@ -296,7 +300,7 @@ option::-ms-expand {
 /* Button */
 button.btn {
     font-family: 'Cisco Sans TT', sans-serif;
-    font-size: 1.1em;
+    fpadding-top: 0;ont-size: 1.1em;
     margin-right: 10px;
     margin-top: 0px; /* is 5px in button css */
     position: relative;
@@ -316,203 +320,137 @@ button {
     /* height: 100%;*/
     margin-bottom: 10px;
 }
+
+summary.filter {
+    color: white;
+    border: 1px solid #1994c9;
+    border-radius: 20px;
+    background-color: #149ed9;
+    display: inline-block;
+    font-size: 1.1em;
+    padding-right: 0.8em;
+}
+details.filter {
+    text-align: left;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    padding-left: 1.5em;
+}
+details[open] summary.filter::after {
+    content: '\25B2'; /* triangle up */
+}
+summary.filter::after {
+    content: '\25BC'; /* triangle down */
+    padding-left: 2em;
+}
+summary.filter::before {
+    content: '';
+    margin-right: 0;
+}
+details[open] summary.filter::before {
+    content: '';
+    margin-right: 0;
+}
 </style>
-<div id="btnContainer">
-  <div class="label">Technology:</div>
-  <div class="btnRow">
-   <div class="select">
-    <select id="filterTechnology" onchange="{console.log('@@', this.options[this.selectedIndex]);if(this.options[this.selectedIndex].onclick != null){this.options[this.selectedIndex].onclick(this);}}" onfocus="this.selectedIndex=-1;" onblur="this.selectedIndex=0; console.log('blurred it ', this);">
-	<option value='' selected disabled>Filter...</option>
-	<option value='Show All' onclick="{doFilter(this);}">Show All</option>
-	<option value='SRv6' onclick="{doFilter(this);}">SRv6</option>
-	<option value='SR MPLS' onclick="{doFilter(this);}">SR MPLS</option>
-    </select>
-   </div>
-
-    <div id='chipContainerTechnology'>
-	<!-- add chips... -->
-    </div>
-  </div>
-
-  <div class="label">Category:</div>
-  <div class="btnRow">
-   <div class="select">
-    <select id="filterCategory" onchange="{console.log('##', this.options[this.selectedIndex]);if(this.options[this.selectedIndex].onclick != null){this.options[this.selectedIndex].onclick(this);}}" onfocus="this.selectedIndex=-1;" onblur="this.selectedIndex=0; console.log('blurred it ', this);">
-	<option value='' selected disabled>Filter...</option>
-	<option value='Show All' onclick="{doFilter(this);}">Show All</option>
-	<option value='Demos' onclick="{doFilter(this);}">Demos</option>
-	<option value='Blogs' onclick="{doFilter(this);}">Blogs</option>
-	<option value='News' onclick="{doFilter(this);}">News</option>
-	<option value='Conferences' onclick="{doFilter(this);}">Conferences</option>
-    </select>
-   </div>
-
-    <div id='chipContainerCategory'>
-	<!-- add chips here... -->
-    </div>
-  </div>
-</div> <!-- end btn container -->
 
 
-	<script>
-
-
-function doFilter(el) {
-	const chipContainerCategory = document.getElementById("chipContainerCategory");
-	const chipContainerTechnology = document.getElementById("chipContainerTechnology");
-	//console.log("doFilter: ", el);
-	var chipContainer = chipContainerTechnology;
-	if (el.parentNode.id === 'filterCategory') {
-		chipContainer = chipContainerCategory;
-	}
-	// if el already in chips, remove it
-	// if el not yet in chips, add it
-	// if el is "show all", remove all chips
-
-	const isRemoved = delChip(chipContainer, el.value);
-	if (!isRemoved && el.value !== 'Show All') {
-		addChip(chipContainer, el.value);
-	}
-	el.parentNode.selectedIndex=0;
-	el.blur();
+<style>
+.filterContainer {
+    max-width: 80%;
+    margin: auto;
+}
+.container.accordion.filtered {
+    padding-top: 0;
+}
+ul.ks-cboxtags {
+    list-style: none;
+    /*padding: 20px;*/
+}
+ul.ks-cboxtags li{
+  display: inline;
+}
+ul.ks-cboxtags li label{
+    display: inline-block;
+    background-color: rgba(255, 255, 255, .9);
+    border: 2px solid rgba(139, 139, 139, .3);
+    color: #adadad;
+    border-radius: 25px;
+    white-space: nowrap;
+    margin: 3px 0px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all .2s;
 }
 
-function addChip(chipContainer, elValue) {
-	//console.log("chipContainer.id=", chipContainer.id);
-	//console.log("adding chip to ", chipContainer, " with value ", elValue);
-	let newChip = document.createElement('button');
-	newChip.setAttribute("id", elValue);
-	newChip.className = "btn";
-	newChip.classList.add("chip-btn2");
-	newChip.innerHTML = '<span>' + elValue + '</span><img src="images/white-x.svg">';
-	newChip.addEventListener("click", handleChipClick);
-	chipContainer.appendChild(newChip);
-	applyFilter();
+ul.ks-cboxtags li label {
+    padding: 8px 12px;
+    cursor: pointer;
 }
 
-function delChip(chipContainer, elValue) {
-	//console.log("chipContainer.id=", chipContainer.id);
-	//console.log("deleting chip of ", chipContainer, " with value ", elValue);
-	let isRemoved=false;
-	// first remove the chip if present
-	const chips = chipContainer.children;
-	//console.log("chips ", chips, " ", chips.length);
-	for (let i = chips.length - 1; i >= 0; i--) {
-		if (chips[i].localName !== "button") {
-			// there should not be any other elements
-			continue;
-		}
-		//console.log("loop chips ", chips[i].innerText);
-		// don't break out to let "Show All" clean up all chips
-		if(elValue === 'Show All' || chips[i].innerText === elValue) {
-			//console.log("removing chip ", chips[i].innerText);
-			chipContainer.removeChild(chips[i]);
-			isRemoved=true;
-		}
-	}
-	if (isRemoved) {
-		// handle new filter setting
-		applyFilter();
-	}
-	return isRemoved;
+ul.ks-cboxtags li label::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 12px;
+    padding: 2px 6px 2px 2px;
+    content: "\f067";
+    transition: transform .3s ease-in-out;
 }
 
-function handleChipClick(e){
-	//console.log("handleChipClick ", e);
-	//console.log("Removing chip", e.target, e, e.target.tagName);
-	//console.log("Current Target=", e.currentTarget);
-	if (e.target.tagName !== 'IMG') {
-		// if the image is not clicked, do nothing
-		return;
-	}
-	const chipContainer = e.currentTarget.parentNode;
-	// value is in the span element
-	const span = e.currentTarget.querySelectorAll('span')[0];
-	//console.log("span=", span);
-	const elValue = span.innerText;
-	//console.log("elValue=", elValue);
-	const result = delChip(chipContainer, elValue);
-	return result;
+ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+    content: "\f00c";
+    /* transform: rotate(-360deg); */
+    transition: transform .3s ease-in-out;
 }
 
-function applyFilter() {
-	console.log("exec applyFilter");
-	// which chips are present per chipContainer?
-	const chipContainerCategory = document.getElementById("chipContainerCategory");
-	const chipContainerTechnology = document.getElementById("chipContainerTechnology");
-	let techList =[];
-	Array.from(chipContainerTechnology.children).forEach(function (chip) {
-		techList.push(chip.innerText.toLowerCase().replace(/\s/g, ''));
-	})
-	//console.log("techlist=", techList);
-	let catList =[];
-	Array.from(chipContainerCategory.children).forEach(function (chip) {
-		catList.push(chip.innerText.toLowerCase().replace(/\s/g, ''));
-	})
-	//console.log("catlist=", catList);
-
-	// the actual filtering
-    	let details = document.querySelectorAll("details");
-	let firstUnhiddenDetails = true;
-	// assume no entry passes the filter
-	let noFilterResults = true;
-	details.forEach(function (details) {
-		// keep track if all entries are hidden, we initially assume they are
-		let allHidden = true;
-		// all items have filterDiv class
-		let divs = details.querySelectorAll("div.filterDiv");
-		for (let div of divs) {
-			let passedTech = false || techList.length === 0;
-			let passedCat = false || catList.length === 0;
-			// does it have any of the techList classes?
-			techList.forEach(function (tech) {
-				if (div.className.toLowerCase().indexOf(tech) > -1) {
-					passedTech = true;
-				}
-			})
-			// does it have any of the catList classes?
-			catList.forEach(function (cat) {
-				if (div.className.toLowerCase().indexOf(cat) > -1) {
-					passedCat = true;
-				}
-			})
-			// passedCat can only be true if passedTech is also true
-			if (passedTech && passedCat) {
-				div.classList.add("show");
-				// at least one entry passed the filter
-				allHidden = false;
-			} else {
-				div.classList.remove("show");
-			}
-		}
-		if (allHidden) {
-			// console.log(details, "ALL entries are hidden");
-			// hide details as well
-			details.hidden = true;
-		} else {
-			//console.log(details, "NOT all entries are hidden");
-			noFilterResults = false;
-			// open first year with non-hidden items
-			if (firstUnhiddenDetails) {
-				firstUnhiddenDetails = false;
-				details.setAttribute("open", "");
-			}
-			details.style.display = "";
-			details.hidden = false;
-		}
-	});
-	let notice = document.getElementById("notice-no-items-found");
-	if (noFilterResults) {
-		notice.hidden = false;
-	} else {
-		notice.hidden = true;
-	}
+ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+    border: 1px solid #1994c9;
+    background-color: #149ed9;
+    color: #fff;
+    transition: all .2s;
 }
 
-window.onload = function(){
-	applyFilter();
-};
-	</script>
+ul.ks-cboxtags li input[type="checkbox"] {
+  display: absolute;
+}
+ul.ks-cboxtags li input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+ul.ks-cboxtags li input[type="checkbox"]:focus + label {
+  /*border: 2px solid #e9a1ff;*/
+}
+</style>
+<div id="filterContainer" class="container">
+  <details class="filter">
+    <summary class="filter"> Filter... </summary>
+    <div id="btnContainer">
+      <div class="filter technology">
+        <ul class="ks-cboxtags">
+          <li><input type="checkbox" autocomplete="off" id="checkboxTOne" value="srv6" onchange="filterSelection()"><label for="checkboxTOne">SRv6</label></li>
+          <li><input type="checkbox" autocomplete="off" id="checkboxTTwo" value="srmpls" onchange="filterSelection()"><label for="checkboxTTwo">SR MPLS</label></li>
+        </ul>
+      </div>
+
+      <div class="filter category">
+        <ul class="ks-cboxtags">
+          <li><input type="checkbox" autocomplete="off" id="checkboxOne" value="news" onchange="filterSelection()"><label for="checkboxOne">News</label></li>
+            <li><input type="checkbox" autocomplete="off" id="checkboxTwo" value="blogs" onchange="filterSelection()"><label for="checkboxTwo">Blogs</label></li>
+            <li><input type="checkbox" autocomplete="off" id="checkboxThree" value="conferences" onchange="filterSelection()"><label for="checkboxThree">Conferences</label></li>
+            <li><input type="checkbox" autocomplete="off" id="checkboxFour" value="demos" onchange="filterSelection()"><label for="checkboxFour">Demos</label></li>
+        </ul>
+      </div>
+    </div> <!-- end btn container -->
+  </details>
+</div> <!-- end filter container -->
 
 
 {% capture written_year %}'None'{% endcapture %}
@@ -531,7 +469,7 @@ window.onload = function(){
 | sort: date 
 | uniq
 | reverse %}
-  <div class="container accordion">
+  <div class="container accordion filtered">
     {% for post in all_content %}
       {% capture year %}{{ post.date | slice: 0, 4 }}{% endcapture %}
       {% if year != written_year %}
@@ -544,8 +482,139 @@ window.onload = function(){
           <summary> {{ year }} </summary>
           {% capture written_year %}{{ year }}{% endcapture %}
       {% endif %}
-      {% include new-news-list %} 
+      {% include new-news-list-tags %} 
     {% endfor %} 
   </div>
-  <p id="notice-no-items-found" hidden>No items found.</p>
+  <p id="notice-no-items-found" hidden>No items match your filter.</p>
 
+
+<script>
+//console.log("BEGIN");
+//let filter = {"category": "all", "technology": "all"};
+//filterSelection("technology", "all");
+filterSelection();
+
+function filterSelection() {
+  // start building the user-selected filters
+  let catFilter=[];
+  let catList = document.querySelectorAll(".filter.category input");
+  //console.log(catList);
+  for (let j = 0; j < catList.length; j++) {
+    //console.log(catList[j], "+", catList[j].checked);
+    if (catList[j].checked) {
+      catFilter.push(catList[j].value);
+    }
+  }
+  let techFilter=[];
+  let techList = document.querySelectorAll(".filter.technology input");
+  //console.log(techList);
+  for (let j = 0; j < techList.length; j++) {
+    //console.log(techList[j], "+", techList[j].checked);
+    if (techList[j].checked) {
+      techFilter.push(techList[j].value);
+    }
+  }
+  console.log("Filtering: tech=", techFilter, " cat=", catFilter);
+
+  // the actual filtering
+  console.log(".container.accordion=", document.querySelectorAll(".container.accordion"));
+  console.log(".container.accordion + details=", document.querySelectorAll(".container.accordion + details"));
+  console.log(".container.accordion.filtered=", document.querySelectorAll(".container.accordion.filtered"));
+  console.log(".container.accordion.filtered + details=", document.querySelectorAll(".container.accordion.filtered + details"));
+  console.log("div.container.accordion.filtered > details=", document.querySelectorAll("div.container.accordion.filtered > details"));
+  let details = document.querySelectorAll(".container.accordion.filtered > details");
+  console.log("# details entries=", details.length);
+  let firstUnhiddenDetails = true;
+  // assume no entry passes the filter
+  let noFilterResults = true;
+  details.forEach(function (detail) {
+    // keep track if all entries are hidden, we initially assume they are
+    let allHidden = true;
+    // all items have filterDiv class
+    let divs = detail.querySelectorAll("div.filterDiv");
+    console.log("# divs entries=", divs.length);
+    for (let div of divs) {
+      let catTagArr = div.dataset.cat_tags.split(",").map(s => s.trim())
+      let techTagArr = div.dataset.tech_tags.split(",").map(s => s.trim())
+      console.log("catTagArr=", catTagArr);
+      console.log("techTagArr=", techTagArr);
+      let passedTech = false || techFilter.length === 0;
+      let passedCat = false || catFilter.length === 0;
+
+      // does it have any of the catList classes?
+      catFilter.forEach( entry => {
+        if (catTagArr.includes(entry)) {
+          passedCat = true;
+        }
+      });
+      // does it have any of the techList classes?
+      techFilter.forEach( entry => {
+        if (techTagArr.includes(entry)) {
+          passedTech = true;
+        }
+      });
+
+      if (passedTech && passedCat) {
+        div.classList.add("show");
+        // at least one entry passed the filter
+        allHidden = false;
+      } else {
+	console.log("NOT SHOWN:", div, " cat=", passedCat, " tech=", passedTech);
+        div.classList.remove("show");
+      }
+    }
+    if (allHidden) {
+      // console.log(detail, "ALL entries are hidden");
+      // hide details as well
+      detail.hidden = true;
+    } else {
+      //console.log(detail, "NOT all entries are hidden");
+      noFilterResults = false;
+      // open first year with non-hidden items
+      if (firstUnhiddenDetails) {
+        firstUnhiddenDetails = false;
+        detail.setAttribute("open", "");
+      }
+      detail.style.display = "";
+      detail.hidden = false;
+    }
+  });
+  let notice = document.getElementById("notice-no-items-found");
+  if (noFilterResults) {
+    notice.hidden = false;
+  } else {
+    notice.hidden = true;
+  }
+}
+
+ /*
+  let divs = document.getElementsByClassName("filterDiv");
+  // Add the "show" class (display:block) to the filtered elements,
+  // and remove the "show" class from the elements that are not selected
+  for (let i = 0; i < divs.length; i++) {
+    let catTagArr = divs[i].dataset.cat_tags.split(",").map(s => s.trim())
+    let techTagArr = divs[i].dataset.tech_tags.split(",").map(s => s.trim())
+    console.log("catTagArr=", catTagArr);
+    console.log("techTagArr=", techTagArr);
+    let catPass = (catFilter.length === 0);
+    let techPass = (techFilter.length === 0);
+    catFilter.forEach( entry => {
+      if (catTagArr.includes(entry)) {
+        catPass = true;
+      }
+    });
+    techFilter.forEach( entry => {
+      if (techTagArr.includes(entry)) {
+        techPass = true;
+      }
+    });
+    if (catPass && techPass) {
+      divs[i].classList.add("show");
+    } else {
+	    console.log("NOT SHOWN:", divs[i], " cat=", catPass, " tech=", techPass);
+      divs[i].classList.remove("show");
+    }
+  }
+*/
+
+</script>

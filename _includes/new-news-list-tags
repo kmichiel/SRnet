@@ -16,7 +16,7 @@
 
 {% capture all_categories %}{{ post.collection }}{% if  post.category %}, {{ post.category | downcase }}{% endif %}{% endcapture %}
 <!--all_categories={{all_categories}}-->
-<div class="accordion-item filterDiv {{ all_categories | split: ", " | uniq | join: " " }} {{ post.technology | split: ", " | join: " " }} show">
+<div class="accordion-item filterDiv show" data-cat_tags="{{ all_categories | downcase }}" data-tech_tags="{{ post.technology | downcase }}">
     <article class="conf-item" itemscope itemtype="http://schema.org/CreativeWork">
       <div class="conf-image">
         <a href="{{ my_url }}" rel="permalink">
@@ -41,7 +41,8 @@
           | replace: "news", "News"
           | replace: "path-tracing", "PT"
         }}{% if post.technology %}, {{ post.technology 
-          | replace: "SRMPLS", "SR-MPLS" }}
+          | replace: "srv6", "SRv6"
+          | replace: "srmpls", "SR-MPLS" }}
         {% endif %}
         </p>
       </div>
