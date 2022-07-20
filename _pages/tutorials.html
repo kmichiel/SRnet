@@ -63,9 +63,9 @@ description: "Whatever your SR training need, we have you covered"
   display: block;
 }
 
+/* two tabs only, better to keep, even for small screens
 @media (max-width: 45em) {
-  .tabs .tab,
-.tabs label {
+  .tabs .tab, .tabs label {
     order: initial;
   }
 
@@ -76,6 +76,7 @@ description: "Whatever your SR training need, we have you covered"
     border-bottom-width: 0px;
   }
 }
+*/
 /**
  * Generic Styling
 */
@@ -103,7 +104,8 @@ body {
       <div class="container accordion">
         {% assign sorted = site.tutorials | where:"category","srv6" | sort: 'order' %}
         <details open>
-          <summary>SRv6</summary>
+          <!-- hiding the summary for now since there is only a single entry -->
+          <summary style="display:none;">SRv6 concepts</summary>
           {% for post in sorted %}
             {% if post.technology contains 'SRv6' %}
           <div>
