@@ -538,11 +538,6 @@ function filterSelection() {
   console.log("Filtering: tech=", techFilter, " cat=", catFilter);
 
   // the actual filtering
-  console.log(".container.accordion=", document.querySelectorAll(".container.accordion"));
-  console.log(".container.accordion + details=", document.querySelectorAll(".container.accordion + details"));
-  console.log(".container.accordion.filtered=", document.querySelectorAll(".container.accordion.filtered"));
-  console.log(".container.accordion.filtered + details=", document.querySelectorAll(".container.accordion.filtered + details"));
-  console.log("div.container.accordion.filtered > details=", document.querySelectorAll("div.container.accordion.filtered > details"));
   let details = document.querySelectorAll(".container.accordion.filtered > details");
   console.log("# details entries=", details.length);
   let firstUnhiddenDetails = true;
@@ -557,8 +552,8 @@ function filterSelection() {
     for (let div of divs) {
       let catTagArr = div.dataset.cat_tags.split(",").map(s => s.trim())
       let techTagArr = div.dataset.tech_tags.split(",").map(s => s.trim())
-      console.log("catTagArr=", catTagArr);
-      console.log("techTagArr=", techTagArr);
+      //console.log("catTagArr=", catTagArr);
+      //console.log("techTagArr=", techTagArr);
       let passedTech = false || techFilter.length === 0;
       let passedCat = false || catFilter.length === 0;
 
@@ -580,7 +575,7 @@ function filterSelection() {
         // at least one entry passed the filter
         allHidden = false;
       } else {
-	console.log("NOT SHOWN:", div, " cat=", passedCat, " tech=", passedTech);
+	//console.log("NOT SHOWN:", div, " cat=", passedCat, " tech=", passedTech);
         div.classList.remove("show");
       }
     }
