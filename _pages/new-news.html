@@ -364,7 +364,8 @@ details[open] summary.filter::before {
 }
 ul.ks-cboxtags {
     list-style: none;
-    /*padding: 20px;*/
+    padding: 5px;
+    margin: 0;
 }
 ul.ks-cboxtags li{
   display: inline;
@@ -428,24 +429,42 @@ ul.ks-cboxtags li input[type="checkbox"] {
 ul.ks-cboxtags li input[type="checkbox"]:focus + label {
   /*border: 2px solid #e9a1ff;*/
 }
+.filter-name {
+  padding-right: 1em;
+}
+.filter.technology, .filter.category {
+    display: flex;
+    align-items: center;
+}
+@media screen and (min-width: 991px) {
+  .filter.technology, .filter.category {
+    margin-left: 0px;
+  }
+}
 </style>
 <div id="filterContainer" class="container">
   <details class="filter">
     <summary class="filter"> Filter... </summary>
     <div id="btnContainer">
       <div class="filter technology">
+        <div class="filter-name">
+          Technology:
+        </div>
         <ul class="ks-cboxtags">
-          <li><input type="checkbox" autocomplete="off" id="checkboxTOne" value="srv6" onchange="filterSelection()"><label for="checkboxTOne">SRv6</label></li>
-          <li><input type="checkbox" autocomplete="off" id="checkboxTTwo" value="srmpls" onchange="filterSelection()"><label for="checkboxTTwo">SR MPLS</label></li>
+          <li><input type="checkbox" autocomplete="on" id="checkboxTOne" value="srv6" onchange="filterSelection()"><label for="checkboxTOne">SRv6</label></li>
+          <li><input type="checkbox" autocomplete="on" id="checkboxTTwo" value="srmpls" onchange="filterSelection()"><label for="checkboxTTwo">SR MPLS</label></li>
         </ul>
       </div>
 
       <div class="filter category">
+        <div class="filter-name">
+          Category:
+        </div>
         <ul class="ks-cboxtags">
-          <li><input type="checkbox" autocomplete="off" id="checkboxOne" value="news" onchange="filterSelection()"><label for="checkboxOne">News</label></li>
-            <li><input type="checkbox" autocomplete="off" id="checkboxTwo" value="blogs" onchange="filterSelection()"><label for="checkboxTwo">Blogs</label></li>
-            <li><input type="checkbox" autocomplete="off" id="checkboxThree" value="conferences" onchange="filterSelection()"><label for="checkboxThree">Conferences</label></li>
-            <li><input type="checkbox" autocomplete="off" id="checkboxFour" value="demos" onchange="filterSelection()"><label for="checkboxFour">Demos</label></li>
+          <li><input type="checkbox" autocomplete="on" id="checkboxOne" value="news" onchange="filterSelection()"><label for="checkboxOne">News</label></li>
+            <li><input type="checkbox" autocomplete="on" id="checkboxTwo" value="blogs" onchange="filterSelection()"><label for="checkboxTwo">Blogs</label></li>
+            <li><input type="checkbox" autocomplete="on" id="checkboxThree" value="conferences" onchange="filterSelection()"><label for="checkboxThree">Conferences</label></li>
+            <li><input type="checkbox" autocomplete="on" id="checkboxFour" value="demos" onchange="filterSelection()"><label for="checkboxFour">Demos</label></li>
         </ul>
       </div>
     </div> <!-- end btn container -->
@@ -489,12 +508,14 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
 
 
 <script>
-//console.log("BEGIN");
-//let filter = {"category": "all", "technology": "all"};
-//filterSelection("technology", "all");
-filterSelection();
+// run filter at pageshow, keeping settings when user comes back
+window.addEventListener('pageshow', function(event) {
+  console.log("invoke filterSelection from pageshow");
+  filterSelection();
+});
 
 function filterSelection() {
+  console.log("filterSelection invoked");
   // start building the user-selected filters
   let catFilter=[];
   let catList = document.querySelectorAll(".filter.category input");
@@ -586,35 +607,4 @@ function filterSelection() {
     notice.hidden = true;
   }
 }
-
- /*
-  let divs = document.getElementsByClassName("filterDiv");
-  // Add the "show" class (display:block) to the filtered elements,
-  // and remove the "show" class from the elements that are not selected
-  for (let i = 0; i < divs.length; i++) {
-    let catTagArr = divs[i].dataset.cat_tags.split(",").map(s => s.trim())
-    let techTagArr = divs[i].dataset.tech_tags.split(",").map(s => s.trim())
-    console.log("catTagArr=", catTagArr);
-    console.log("techTagArr=", techTagArr);
-    let catPass = (catFilter.length === 0);
-    let techPass = (techFilter.length === 0);
-    catFilter.forEach( entry => {
-      if (catTagArr.includes(entry)) {
-        catPass = true;
-      }
-    });
-    techFilter.forEach( entry => {
-      if (techTagArr.includes(entry)) {
-        techPass = true;
-      }
-    });
-    if (catPass && techPass) {
-      divs[i].classList.add("show");
-    } else {
-	    console.log("NOT SHOWN:", divs[i], " cat=", catPass, " tech=", techPass);
-      divs[i].classList.remove("show");
-    }
-  }
-*/
-
 </script>

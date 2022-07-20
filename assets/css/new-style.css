@@ -193,9 +193,6 @@ label.underline:before, .nav-link > a.underline:before {
   #toggle:hover + div {
     display: block;
   }
-  .technology {
-    margin-left: 0px;
-  }
 }
 
 /* adjusted from 1100px to 1176px after adding Path Tracing menu item */
