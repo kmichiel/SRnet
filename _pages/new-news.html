@@ -335,6 +335,7 @@ details.filter {
     padding-bottom: 0;
     margin-bottom: 0;
     padding-left: 1.5em;
+    padding-right: 0;
 }
 details[open] summary.filter::after {
     content: '\25B2'; /* triangle up */
@@ -356,8 +357,8 @@ details[open] summary.filter::before {
 
 <style>
 .filterContainer {
-    max-width: 80%;
-    margin: auto;
+    /* max-width: 80%; */
+    /* margin: auto; */
 }
 .container.accordion.filtered {
     padding-top: 0;
@@ -442,35 +443,77 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
   }
 }
 </style>
-<div id="filterContainer" class="container">
-  <details class="filter">
-    <summary class="filter"> Filter... </summary>
-    <div id="btnContainer">
-      <div class="filter technology">
-        <div class="filter-name">
-          Technology:
-        </div>
-        <ul class="ks-cboxtags">
-          <li><input type="checkbox" autocomplete="on" id="checkboxTOne" value="srv6" onchange="filterSelection()"><label for="checkboxTOne">SRv6</label></li>
-          <li><input type="checkbox" autocomplete="on" id="checkboxTTwo" value="srmpls" onchange="filterSelection()"><label for="checkboxTTwo">SR MPLS</label></li>
-        </ul>
-      </div>
 
-      <div class="filter category">
-        <div class="filter-name">
-          Category:
-        </div>
-        <ul class="ks-cboxtags">
-          <li><input type="checkbox" autocomplete="on" id="checkboxOne" value="news" onchange="filterSelection()"><label for="checkboxOne">News</label></li>
-            <li><input type="checkbox" autocomplete="on" id="checkboxTwo" value="blogs" onchange="filterSelection()"><label for="checkboxTwo">Blogs</label></li>
-            <li><input type="checkbox" autocomplete="on" id="checkboxThree" value="conferences" onchange="filterSelection()"><label for="checkboxThree">Conferences</label></li>
-            <li><input type="checkbox" autocomplete="on" id="checkboxFour" value="demos" onchange="filterSelection()"><label for="checkboxFour">Demos</label></li>
-        </ul>
-      </div>
-    </div> <!-- end btn container -->
-  </details>
-</div> <!-- end filter container -->
-
+<style>
+#news-navbar-container {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#filterContainer {
+  margin: 0;
+}
+#unfold-container, #fold-container {
+    margin: 0;
+}
+#unfold-container .button, #fold-container .button {
+    text-align: left;
+    margin-bottom: 0;
+    max-width: 100%;
+    padding: 15px 20px 15px 0px;
+    padding-bottom: 0;
+    padding-right: 0;
+    padding-left: 1.5em;
+}
+#unfold-container .button .unfold-label,  #fold-container .button .fold-label {
+    color: white;
+    border: 1px solid #1994c9;
+    border-radius: 20px;
+    background-color: #149ed9;
+    display: inline-block;
+    font-size: 1.1em;
+    padding-right: 0.8em;
+    padding-left: 20px;
+    text-align: left;
+    margin-top: 0px;
+    /*-webkit-box-flex: 1;*/
+    /*-webkit-flex: 1;*/
+    /*-ms-flex: 1;*/
+    /*flex: 1;*/
+    /*color: #333;*/
+    /*font-size: 30px;*/
+    line-height: 40px;
+    font-style: normal;
+    font-weight: 300;
+    cursor: pointer;
+    list-style: none;
+}
+#btnContainer {
+    /* margin-left: 2em; */
+    position: absolute;
+    background-color: white;
+    z-index: 100;
+    /* margin-top: 1em; */
+    /* background-color: var(--color-canvas-overlay); */
+    background-clip: padding-box;
+    /* border: 1pxsolidvar(--color-border-default);*/
+    border-radius: 6px;
+    box-shadow: rgb(140 149 159 / 20%) 0px 8px 24px 0px;
+    /* top: 100%; */
+    /* left: 0; */
+    z-index: 100;
+    /* width: 160px; */
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    /* margin-top: 2px; */
+    list-style: none;
+    padding-left: 1em;
+    padding-right: 1em;
+    /* margin-right: 2em; */
+    /* margin-right: 1em; */
+}
+</style>
 
 {% capture written_year %}'None'{% endcapture %}
 {% comment %}
@@ -489,6 +532,50 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
 | uniq
 | reverse %}
   <div class="container accordion filtered">
+    <div id="news-navbar-container">
+      <div id="filterContainer" class="container">
+        <details id="details-filter" class="filter">
+          <summary class="filter"> Filter... </summary>
+          <div id="btnContainer">
+            <div class="filter technology">
+              <div class="filter-name">
+                Technology:
+              </div>
+              <ul class="ks-cboxtags">
+                <li><input type="checkbox" autocomplete="on" id="checkboxTOne" value="srv6" onchange="filterSelection()"><label for="checkboxTOne">SRv6</label></li>
+                <li><input type="checkbox" autocomplete="on" id="checkboxTTwo" value="srmpls" onchange="filterSelection()"><label for="checkboxTTwo">SR MPLS</label></li>
+              </ul>
+            </div>
+      
+            <div class="filter category">
+              <div class="filter-name">
+                Category:
+              </div>
+              <ul class="ks-cboxtags">
+                <li><input type="checkbox" autocomplete="on" id="checkboxOne" value="news" onchange="filterSelection()"><label for="checkboxOne">News</label></li>
+                  <li><input type="checkbox" autocomplete="on" id="checkboxTwo" value="blogs" onchange="filterSelection()"><label for="checkboxTwo">Blogs</label></li>
+                  <li><input type="checkbox" autocomplete="on" id="checkboxThree" value="conferences" onchange="filterSelection()"><label for="checkboxThree">Conferences</label></li>
+                  <li><input type="checkbox" autocomplete="on" id="checkboxFour" value="demos" onchange="filterSelection()"><label for="checkboxFour">Demos</label></li>
+              </ul>
+            </div>
+          </div> <!-- end btn container -->
+        </details>
+      </div> <!-- end filter container -->
+      <div id="unfold-container" class="container" onclick="unfoldAll()">
+        <div class="button">
+          <div class="unfold-label">
+            Unfold All
+          </div>
+        </div>
+      </div>
+      <div id="fold-container" class="container" onclick="foldAll()">
+        <div class="button">
+          <div class="fold-label">
+            Fold All
+          </div>
+        </div>
+      </div>
+    </div> <!-- end news-navbar-container -->
     {% for post in all_content %}
       {% capture year %}{{ post.date | slice: 0, 4 }}{% endcapture %}
       {% if year != written_year %}
@@ -506,6 +593,24 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
   </div>
   <p id="notice-no-items-found" hidden>No items match your filter.</p>
 
+<script>
+/* from https://stackoverflow.com/questions/68644260/how-to-close-details-tag-when-other-is-open-or-a-click-is-made-outside-the-tag */
+/* can be simplified */
+let details = [...document.querySelectorAll('#details-filter')];
+document.addEventListener('click', function(e) {
+  if (!details.some(f => f.contains(e.target))) {
+    details.forEach(f => f.removeAttribute('open'));
+  }
+})
+function unfoldAll() {
+  let details = document.querySelectorAll(".container.accordion.filtered > details");
+  details.forEach(detail => detail.setAttribute("open", ""));
+}
+function foldAll() {
+  let details = document.querySelectorAll(".container.accordion.filtered > details");
+  details.forEach(detail => detail.removeAttribute('open'));
+}
+</script>
 
 <script>
 // run filter at pageshow, keeping settings when user comes back
