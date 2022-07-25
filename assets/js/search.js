@@ -38,11 +38,11 @@ jQuery(function() {
         if (results.length) {
           $search_results.empty(); 
           var appendStringNews = '<details open><summary>News</summary>';
-          var appendStringScientific = '<details><summary>Scientific Papers</summary>';
-          var appendStringOpen = '<details><summary>Open Software</summary>';
-          var appendStringConferences = '<details><summary>Conferences</summary>';
-          var appendStringDemos = '<details><summary>Demos</summary>';
-          var appendStringTutorials = '<details><summary>Tutorials</summary>';
+          var appendStringScientific = '<details open><summary>Scientific Papers</summary>';
+          var appendStringOpen = '<details open><summary>Open Software</summary>';
+          var appendStringConferences = '<details open><summary>Conferences</summary>';
+          var appendStringDemos = '<details open><summary>Demos</summary>';
+          var appendStringTutorials = '<details open><summary>Tutorials</summary>';
           var appendClosing = '</details>'
 
           results.forEach(function(result) {
