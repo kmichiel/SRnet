@@ -38,12 +38,13 @@ jQuery(function() {
         if (results.length) {
           $search_results.empty(); 
           var appendStringNews = '<details open><summary>News</summary>';
-          var appendStringScientific = '<details open><summary>Scientific Papers</summary>';
+          var appendStringScientific = '<details open><summary>Scientific Papers</summary>'; /* length=50 */
           var appendStringOpen = '<details open><summary>Open Software</summary>';
           var appendStringConferences = '<details open><summary>Conferences</summary>';
           var appendStringDemos = '<details open><summary>Demos</summary>';
           var appendStringTutorials = '<details open><summary>Tutorials</summary>';
           var appendClosing = '</details>'
+          let maxInitialStringLength = 50;
 
           results.forEach(function(result) {
             var item = loaded_data[result.ref];
@@ -98,7 +99,7 @@ jQuery(function() {
           headings.forEach(item => {
             console.log(item)
             console.log(item.length)
-            if(item.length > 46) {
+            if(item.length > maxInitialStringLength) {
               $search_results.append(item, appendClosing)
             }
             $search_results.append();
