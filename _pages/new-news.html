@@ -552,10 +552,10 @@ ul.ks-cboxtags li input[type="checkbox"]:focus + label {
                 Category:
               </div>
               <ul class="ks-cboxtags">
-                <li><input type="checkbox" autocomplete="on" id="checkboxOne" value="news" onchange="filterSelection()"><label for="checkboxOne">News</label></li>
-                  <li><input type="checkbox" autocomplete="on" id="checkboxTwo" value="blogs" onchange="filterSelection()"><label for="checkboxTwo">Blogs</label></li>
-                  <li><input type="checkbox" autocomplete="on" id="checkboxThree" value="conferences" onchange="filterSelection()"><label for="checkboxThree">Conferences</label></li>
-                  <li><input type="checkbox" autocomplete="on" id="checkboxFour" value="demos" onchange="filterSelection()"><label for="checkboxFour">Demos</label></li>
+                <li><input type="checkbox" autocomplete="on" id="checkboxTwo" value="blogs" onchange="filterSelection()"><label for="checkboxTwo">Blogs</label></li>
+                <li><input type="checkbox" autocomplete="on" id="checkboxThree" value="conferences" onchange="filterSelection()"><label for="checkboxThree">Conferences</label></li>
+                <li><input type="checkbox" autocomplete="on" id="checkboxFour" value="demos" onchange="filterSelection()"><label for="checkboxFour">Demos</label></li>
+                <li><input type="checkbox" autocomplete="on" id="checkboxOne" value="other" onchange="filterSelection()"><label for="checkboxOne">Other</label></li>
               </ul>
             </div>
           </div> <!-- end btn container -->
@@ -622,28 +622,21 @@ window.addEventListener('pageshow', function(event) {
 function filterSelection() {
   console.log("filterSelection invoked");
   // start building the user-selected filters
-  let catFilter=[];
-  let catList = document.querySelectorAll(".filter.category input");
-  //console.log(catList);
-  for (let j = 0; j < catList.length; j++) {
-    //console.log(catList[j], "+", catList[j].checked);
-    if (catList[j].checked) {
-      catFilter.push(catList[j].value);
-    }
-  }
-  let techFilter=[];
-  let techList = document.querySelectorAll(".filter.technology input");
+  const catList = document.querySelectorAll(".filter.category input");
+  // list of categories that are not part of the "other" category
+  const notOtherCatList = [...catList].map( el => el.value ).filter( el => el !== "other" );
+  //console.log("catList=", catList);
+  //console.log("notOtherCatList=", notOtherCatList);
+  const catFilter = [...catList].filter( el => el.checked ).map( el => el.value );
+
+  const techList = document.querySelectorAll(".filter.technology input");
   //console.log(techList);
-  for (let j = 0; j < techList.length; j++) {
-    //console.log(techList[j], "+", techList[j].checked);
-    if (techList[j].checked) {
-      techFilter.push(techList[j].value);
-    }
-  }
+  const techFilter = [...techList].filter( el => el.checked ).map( el => el.value );
+
   console.log("Filtering: tech=", techFilter, " cat=", catFilter);
 
   // the actual filtering
-  let details = document.querySelectorAll(".container.accordion.filtered > details");
+  const details = document.querySelectorAll(".container.accordion.filtered > details");
   console.log("# details entries=", details.length);
   let firstUnhiddenDetails = true;
   // assume no entry passes the filter
@@ -662,18 +655,18 @@ function filterSelection() {
       let passedTech = false || techFilter.length === 0;
       let passedCat = false || catFilter.length === 0;
 
-      // does it have any of the catList classes?
-      catFilter.forEach( entry => {
-        if (catTagArr.includes(entry)) {
-          passedCat = true;
-        }
-      });
-      // does it have any of the techList classes?
-      techFilter.forEach( entry => {
-        if (techTagArr.includes(entry)) {
-          passedTech = true;
-        }
-      });
+      // does the div have any of the catFilter classes?
+      // true if >0 elements of catTagArr is in catFilter array
+      passedCat |= catTagArr.some( el => catFilter.includes(el) );
+      if (catFilter.includes("other")) {
+        //console.log("'other' is selected");
+        //console.log("does array ", catTagArr, " contain any of the ", notOtherCatList);
+        //console.log(!(catTagArr.some( el => notOtherCatList.includes(el) )));
+        passedCat |= !(catTagArr.some( el => notOtherCatList.includes(el) ))
+      }
+
+      // does the div have any of the techFilter classes?
+      passedTech |= techTagArr.some( el => techFilter.includes(el) );
 
       if (passedTech && passedCat) {
         div.classList.add("show");
