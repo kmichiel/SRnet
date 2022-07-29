@@ -33,15 +33,18 @@
           </h3>
         </a>
         <p class="article-excerpt"> {{ post.excerpt }} </p>
-        <p class="article-postfix">{{ post.date | date: '%B %d, %Y' }} -
+        <p class="article-postfix">{{ post.date | date: '%B %d, %Y' }} –
         {{ all_categories
           | replace: "demos", "Demos"
           | replace: "blogs", "Blogs"
           | replace: "conferences", "Conferences"
           | replace: "news", "News"
           | replace: "path-tracing", "PT"
-        }}{% if post.technology %}, {{ post.technology 
+          | replace: ", PT", ""
+          | replace: "PT, ", ""
+        }}{% if post.technology %} – {{ post.technology 
           | replace: "srv6", "SRv6"
+          | replace: "path-tracing", "PT"
           | replace: "srmpls", "SR-MPLS" }}
         {% endif %}
         </p>
