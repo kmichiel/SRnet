@@ -30,11 +30,8 @@ header:
 
 ### Slides
 
-{% capture "pdf-link" %}/images/1551544-sr-mpls-sdn-2016-rev2b.pdf{% endcapture %}
+{% include pdf link="/images/1551544-sr-mpls-sdn-2016-rev2b.pdf" %}
 
-<script src="{{ '/assets/js/pdfobject.min.js' | relative_url }}"></script>
-<div class="fitvidsignore" id="pdf"></div>
-<script>PDFObject.embed(" {{ pdf-link | relative_url }} ", "#pdf", {height: "21.5em", width: "31.3em"});</script>  
 
 ### Longer video  
   

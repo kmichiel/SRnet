@@ -20,8 +20,5 @@ header:
 
 ## Slides  
 
-{% capture "pdf-link" %}https://www.enog.org/presentations/enog-7/263-EPE-ENOG7.pdf{% endcapture %}
+{% include pdf link="https://www.enog.org/presentations/enog-7/263-EPE-ENOG7.pdf" %}
 
-<script src="{{ 'assets/js/pdfobject.min.js' | relative_url }}"></script>
-<div class="fitvidsignore" id="pdf"></div>
-<script>PDFObject.embed(" {{ pdf-link | relative_url }} ", "#pdf", {height: "21.5em", width: "31.3em"});</script>

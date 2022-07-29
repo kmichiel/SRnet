@@ -16,8 +16,5 @@ excerpt: >-
 See what the Segment Routing Global Block is. Learn about the best practices to use the same SRGB on all segment routing nodes. Further, learn how to modify the Segment Routing Global Block.
 {: .notice}
 
-{% capture "pdf-link" %}/images/tutorials/0030-SR-TOI-SRGB_v10.pdf{% endcapture %}
+{% include pdf link="/images/tutorials/0030-SR-TOI-SRGB_v10.pdf" %}
 
-<script src="{{ 'assets/js/pdfobject.min.js' | relative_url }}"></script>
-<div class="fitvidsignore" id="pdf"></div>
-<script>PDFObject.embed(" {{ pdf-link | relative_url }} ", "#pdf", {height: "21.5em", width: "100%"});</script>

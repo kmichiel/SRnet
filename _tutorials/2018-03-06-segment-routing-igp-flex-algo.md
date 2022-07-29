@@ -15,8 +15,5 @@ Flexible Algorithm enriches the SR TE solution by adding additional segments hav
 [Click here to see the video of this presentation.](http://www.segment-routing.net/conferences/2018-sr-igp-flexible-algorithm/)
 {: .notice}  
 
-{% capture "pdf-link" %}/images/tutorials/sr-igp-flex-algo-rev4b-km1.pdf{% endcapture %}
+{% include pdf link="/images/tutorials/sr-igp-flex-algo-rev4b-km1.pdf" %}
 
-<script src="{{ 'assets/js/pdfobject.min.js' | relative_url }}"></script>
-<div class="fitvidsignore" id="pdf"></div>
-<script>PDFObject.embed(" {{ pdf-link | relative_url }} ", "#pdf", {height: "21.5em", width: "100%"});</script>

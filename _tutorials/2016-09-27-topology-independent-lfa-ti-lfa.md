@@ -17,8 +17,5 @@ An introduction to the Topology Independent LFA and micro-loop (uloop) avoidance
 In the end, see what uloops are and how SR effectively prevents these uloops.
 {: .notice}  
 
-{% capture "pdf-link" %}/images/tutorials/0080-SR-TOI-SR_TI-LFA_v17_EXTERNAL.pdf{% endcapture %}
+{% include pdf link="/images/tutorials/0080-SR-TOI-SR_TI-LFA_v17_EXTERNAL.pdf" %}
 
-<script src="{{ 'assets/js/pdfobject.min.js' | relative_url }}"></script>
-<div class="fitvidsignore" id="pdf"></div>
-<script>PDFObject.embed(" {{ pdf-link | relative_url }} ", "#pdf", {height: "21.5em", width: "100%"});</script>

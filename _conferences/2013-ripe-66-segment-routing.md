@@ -15,11 +15,8 @@ header:
 
 ### Slides:  
 
-{% capture "pdf1-link" %}https://ripe66.ripe.net/presentations/232-SR_RIPE_v2.pdf{% endcapture %}
+{% include pdf link="https://ripe66.ripe.net/presentations/232-SR_RIPE_v2.pdf" %}
 
-<script src="{{ 'assets/js/pdfobject.min.js' | relative_url }}"></script>
-<div class="fitvidsignore" id="pdf"></div>
-<script>PDFObject.embed(" {{ pdf-link | relative_url }} ", "#pdf", {height: "21.5em", width: "31.3em"});</script>
 
 
 ### Video   
