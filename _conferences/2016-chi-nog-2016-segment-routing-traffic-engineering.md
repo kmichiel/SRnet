@@ -31,7 +31,7 @@ Segment Routing (SR) works by encoding a path across a network as an ordered lis
 
 ## Video 
 
-<iframe width="100%" height="400px" src="https://www.youtube.com/embed/6Mnx6Y3MZMo" frameborder="0" allowfullscreen></iframe>
+{% include video id="6Mnx6Y3MZMo" provider="youtube" %}
 
 
 ## Slides  

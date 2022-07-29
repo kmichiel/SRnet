@@ -24,7 +24,7 @@ header:
 ### Video  
 
 
-<iframe width="100%" height="400px" class="fitvidsignore" src="https://www.youtube.com/embed/VORGW0bBHLs" frameborder="0" allowfullscreen></iframe>  
+{% include video id="VORGW0bBHLs" provider="youtube" %}
 
   
 
@@ -41,7 +41,7 @@ header:
 Recorded post conference.  
 {: .notice--info}  
 
-<iframe width="100%" height="400px" src="https://www.youtube.com/embed/EUxm9EH1wyQ" frameborder="0" allowfullscreen></iframe>  
+{% include video id="EUxm9EH1wyQ" provider="youtube" %}
 
 
 ## Segment Routing On-Demand Next-hop (ODN) Demo  
@@ -49,7 +49,7 @@ Recorded post conference.
 **Jose Liste, Cisco**
 {: .notice--info}  
     
-<iframe width="100%" height="400px" src="https://www.youtube.com/embed/0xtysG86Fik" frameborder="0" allowfullscreen></iframe>  
+{% include video id="0xtysG86Fik" provider="youtube" %}
   
   
 ## Segment Routing Agile Carrier Ethernet (ACE) Demo  
@@ -57,7 +57,7 @@ Recorded post conference.
 **Alex Preusche, Cisco**
 {: .notice--info}  
 
-<iframe width="100%" height="400px" src="https://www.youtube.com/embed/biYqyAn9rl0" frameborder="0" allowfullscreen></iframe>  
+{% include video id="biYqyAn9rl0" provider="youtube" %}
   
 
 ## Segment Routing TI-LFA FRR Node Protection Demo  
@@ -65,7 +65,7 @@ Recorded post conference.
 **Kris Michielsen, Cisco**
 {: .notice--info}  
 
-<iframe width="100%" height="400px" src="https://www.youtube.com/embed/dttw2nc5FrA" frameborder="0" allowfullscreen></iframe>  
+{% include video id="dttw2nc5FrA" provider="youtube" %}
   
     
 ## Segment Routing Microloop Avoidance Demo 
@@ -73,13 +73,13 @@ Recorded post conference.
 **Kris Michielsen, Cisco**
 {: .notice--info}  
 
-<iframe width="100%" height="400px" src="https://www.youtube.com/embed/7nfnp-dnUHk" frameborder="0" allowfullscreen></iframe>  
+{% include video id="7nfnp-dnUHk" provider="youtube" %}
   
     
 ## Segment Routing and EPE for Application Optimization   
   
   
-<iframe width="100%" height="400px" src="https://www.youtube.com/embed/RzsyUfS4lb0" frameborder="0" allowfullscreen></iframe>  
+{% include video id="RzsyUfS4lb0" provider="youtube" %}
   
 
   

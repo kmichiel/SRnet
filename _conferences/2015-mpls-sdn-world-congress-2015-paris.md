@@ -21,7 +21,7 @@ header:
 {: .notice--info}  
  
 
-<iframe width="100%" height="400px" class="fitvidsignore" src="https://www.youtube.com/embed/0IVk3WnrROs" frameborder="0" allowfullscreen></iframe>    
+{% include video id="0IVk3WnrROs" provider="youtube" %}
 
   
 ## Microsoft MPLS MPLS SDN World Congress 2015     
@@ -29,7 +29,7 @@ header:
 **Tim LaBerge, Microsoft**
 {: .notice--info}  
 
-<iframe width="100%" height="400px" src="https://www.youtube.com/embed/S1WlMSf4j_4" frameborder="0" allowfullscreen></iframe>  
+{% include video id="S1WlMSf4j_4" provider="youtube" %}
 
 
 ## SPRING interoperability testing  
@@ -46,4 +46,4 @@ header:
 **Dave Ward, Cisco**
 {: .notice--info}     
 
-<iframe width="100%" height="400px" src="https://www.youtube.com/embed/aNBxxPZJUjg" frameborder="0" allowfullscreen></iframe>
+{% include video id="aNBxxPZJUjg" provider="youtube" %}

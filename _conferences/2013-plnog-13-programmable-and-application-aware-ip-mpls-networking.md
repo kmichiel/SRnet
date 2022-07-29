@@ -24,7 +24,7 @@ In this session, the concept of support for Segment Routing based on Open Daylig
 
 
 ## Video
-<iframe width="100%" height="400px" src="https://www.youtube.com/embed/2jjgrq805VU" frameborder="0" allowfullscreen></iframe>
+{% include video id="2jjgrq805VU" provider="youtube" %}
 
 
 ## Slides

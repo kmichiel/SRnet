@@ -15,7 +15,7 @@ header:
 
 ## Video  
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/lujkWfdB4NM" frameborder="0" allowfullscreen></iframe>
+{% include video id="lujkWfdB4NM" provider="youtube" %}
 
 
 ## Slides  
