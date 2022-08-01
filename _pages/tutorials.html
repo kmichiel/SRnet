@@ -44,7 +44,7 @@ description: "Whatever your SR training need, we have you covered"
   width: 100%;
   display: none;
   padding: 1rem;
-  background: whitesmoke;
+  /*background: whitesmoke;*/
 }
 
 .tabs h1 {
@@ -55,12 +55,32 @@ description: "Whatever your SR training need, we have you covered"
 }
 
 .tabs input[type=radio]:checked + label {
+  background: white;
+  position: relative;
+}
+
+.tabs input[type=radio]:not(:checked) + label {
   background: whitesmoke;
-  /*border-radius: 0.3em;*/
 }
 
 .tabs input[type=radio]:checked + label + .tab {
   display: block;
+  border: 1px solid lightgrey;
+  border-radius: 0em 0.3em 0.3em 0.3em;
+}
+
+.tabs input[type=radio]:checked + label:after {
+    content: "";
+    height: 3px;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    z-index: 100;
+    padding: 0;
+    margin: 0;
+    display: block;
 }
 
 /* two tabs only, better to keep, even for small screens
