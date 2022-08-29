@@ -9,8 +9,9 @@ title: "Search"
 
 <div class="search-form" value="{{ base_path }}" id="base_url" >
 <form action="get" id="site_search">
-  <input style="font-size:20px;" class="search-input" type="text" id="search_box" placeholder="">
+  <input style="font-size:20px;" class="search-input" type="text" id="search_box" autocomplete="on" placeholder="">
   <button type="submit" value="Send" class="btn form-button" id="submit">Search</button>
+  <input type="submit" style="display:none"/>
 </form>
 </div>
 
