@@ -70,6 +70,14 @@ jQuery(function() {
         return url.trim().toLowerCase().endsWith(".pdf");
     }
 
+    function fix_rel_url(url) {
+        // if url is relative, the base url must be added
+        if (url.startsWith("/")) {
+		return base_url + url;
+	}
+        return url;
+    }
+
     function display_search_results(results) {
       var $search_results = $("#search_results");
       var $hero = $(".hero-block");
@@ -89,6 +97,13 @@ jQuery(function() {
           results.forEach(function(result) {
             var item = loaded_data[result.ref];
             var source = item.url.split('/');
+            let date_string = "";
+            if (item.date) {
+                let date = new Date(item.date);
+                date_string = '<div class="date">';
+                date_string = date_string + date.toLocaleString('default', { month: 'long',day:'numeric', year:'numeric'});
+                date_string = date_string + '</div>';
+            }
 
             if (source[1] == 'news') {
               let url = "";
@@ -97,11 +112,14 @@ jQuery(function() {
               } else {
                   url = item.source-url;
               }
+              url = fix_rel_url(url);
+
               let dom_name = get_dom_name(url);
               if (dom_name.length > 0) {
                   dom_name = " (<i>" + dom_name + "</i>)";
               }
-              appendStringNews = appendStringNews + '<div class="accordion-item" <article><span class="underline-on-hover"><a class="file-type" href="'+ url +'">' + item.title + dom_name + '</a></span></article></div>'
+              appendStringNews = appendStringNews + '<div class="accordion-item"> <article><span class="underline-on-hover"><a class="file-type" href="'+ url +'">' + item.title + dom_name + '</a></span></article>' + date_string + '</div>'
+		    console.log(appendStringNews);
             }
 
             if (source[1] == 'scientific-papers') {
@@ -110,11 +128,12 @@ jQuery(function() {
 	      } else {
 		      url = item.eurl;
 	      }
+              url = fix_rel_url(url);
               let dom_name = get_dom_name(url);
               if (dom_name.length > 0) {
                   dom_name = " (<i>" + dom_name + "</i>)";
               }
-              appendStringScientific = appendStringScientific + '<div class="accordion-item" <article><span class="underline-on-hover"><a class="file-type" href="'+ url + '">' + item.title + dom_name + '</a></span></article></div>'
+              appendStringScientific = appendStringScientific + '<div class="accordion-item"> <article><span class="underline-on-hover"><a class="file-type" href="'+ url + '">' + item.title + dom_name + '</a></span></article></div>'
             }
 
             if (source[1] == 'open-software') {
@@ -123,7 +142,8 @@ jQuery(function() {
 	      } else {
 		      url = item.url;
 	      }
-              appendStringOpen = appendStringOpen + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
+              url = fix_rel_url(url);
+              appendStringOpen = appendStringOpen + '<div class="accordion-item"> <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
             }
 
             if (source[1] == 'conferences') {
@@ -132,7 +152,8 @@ jQuery(function() {
 	      } else {
 		      url = item.url;
 	      }
-              appendStringConferences = appendStringConferences + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
+              url = fix_rel_url(url);
+              appendStringConferences = appendStringConferences + '<div class="accordion-item"> <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article>' + date_string + '</div>'
             }
 
             if (source[1] == 'demos') {
@@ -141,7 +162,8 @@ jQuery(function() {
 	      } else {
 		      url = item.url;
 	      }
-              appendStringDemos = appendStringDemos + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
+              url = fix_rel_url(url);
+              appendStringDemos = appendStringDemos + '<div class="accordion-item"> <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
             }
 
             if (source[1] == 'tutorials') {
@@ -150,7 +172,8 @@ jQuery(function() {
 	      } else {
 		      url = item.url;
 	      }
-              appendStringTutorials = appendStringTutorials + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
+              url = fix_rel_url(url);
+              appendStringTutorials = appendStringTutorials + '<div class="accordion-item"> <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
             }
           });
           $hero.remove();
