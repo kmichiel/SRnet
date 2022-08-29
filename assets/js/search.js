@@ -30,6 +30,40 @@ jQuery(function() {
         display_search_results(results);
     });
   
+    // run search at pageshow if there is a query, keeping query when user comes back
+    window.addEventListener('pageshow', function(event) {
+        var curr_query =  document.getElementById('search_box').value;
+        if (curr_query !== "") {
+            var results = window.idx.search(curr_query);
+            display_search_results(results);
+        }
+    });
+
+    function get_dom_name(url) {
+        // remove whitespace
+        url = url.trim();
+        // if URL contains base_url, it's an internal link
+        if (url.search(base_url) >= 0) {
+            return "";
+        }
+        // if URL does not start with "http(s):", it's an internal link
+        if (url.search(/^https?:\/\//) < 0) {
+            return ""
+        }
+	// remove any leading http:// or https://
+        url = url.replace(/^https?:\/\//, "");
+        // split on '/'
+        let url_arr = url.split("/");
+        // take first entry
+        let dom_name = url_arr[0]
+        // split on '.'
+        let dom_name_arr = dom_name.split(".");
+        // take last two entries
+        dom_name_arr = dom_name_arr.slice(dom_name_arr.length - 2);
+        // join two entries
+        return dom_name_arr.join(".");
+    }
+
     function display_search_results(results) {
       var $search_results = $("#search_results");
       var $hero = $(".hero-block");
@@ -51,46 +85,56 @@ jQuery(function() {
             var source = item.url.split('/');
 
             if (source[1] == 'news') {
-              if(item.eurl) {
-                appendStringNews = appendStringNews + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.eurl +'" target="_blank">' + item.title + '</a></span></article></div>'
+              let url = "";
+              if (item.eurl) {
+                  url = item.eurl;
               } else {
-                appendStringNews = appendStringNews + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.source-url +'" target="_blank">' + item.title + '</a></span></article></div>'
+                  url = item.source-url;
               }
-                
+              let dom_name = get_dom_name(url);
+              if (dom_name.length > 0) {
+                   dom_name = " (" + dom_name + ")";
+              }
+              appendStringNews = appendStringNews + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ url +'">' + item.title + dom_name + '</a></span></article></div>'
             }
+
             if (source[1] == 'scientific-papers') {
               if(item.doi) {
-                appendStringScientific = appendStringScientific + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="https://doi.org/'+ item.doi + '" target="_blank">' + item.title + '</a></span></article></div>'
+                appendStringScientific = appendStringScientific + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="https://doi.org/'+ item.doi + '">' + item.title + ' (doi.org)</a></span></article></div>'
               } else {
-                appendStringScientific = appendStringScientific + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.eurl + '" target="_blank">' + item.title + '</a></span></article></div>'
+                let dom_name = get_dom_name(item.eurl);
+                if (dom_name.length > 0) {
+                    dom_name = " (" + dom_name + ")";
+                }
+                appendStringScientific = appendStringScientific + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.eurl + '">' + item.title + dom_name + '</a></span></article></div>'
               }
             }
             if (source[1] == 'open-software') {
               if(item.link){
-                appendStringOpen = appendStringOpen + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '" target="_blank">' + item.title + '</a></span></article></div>'
+                appendStringOpen = appendStringOpen + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '">' + item.title + '</a></span></article></div>'
               } else {
-                appendStringOpen = appendStringOpen + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '" target="_blank">' + item.title + '</a></span></article></div>'
+                appendStringOpen = appendStringOpen + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '">' + item.title + '</a></span></article></div>'
               }
             }
             if (source[1] == 'conferences') {
               if(item.link){
-                appendStringConferences = appendStringConferences + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '" target="_blank">' + item.title + '</a></span></article></div>'
+                appendStringConferences = appendStringConferences + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '">' + item.title + '</a></span></article></div>'
               } else {
-                appendStringConferences = appendStringConferences + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '" target="_blank">' + item.title + '</a></span></article></div>'
+                appendStringConferences = appendStringConferences + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '">' + item.title + '</a></span></article></div>'
               }
             }
             if (source[1] == 'demos') {
               if(item.link){
-                appendStringDemos = appendStringDemos + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '" target="_blank">' + item.title + '</a></span></article></div>'
+                appendStringDemos = appendStringDemos + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '">' + item.title + '</a></span></article></div>'
               } else {
-                appendStringDemos = appendStringDemos + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '" target="_blank">' + item.title + '</a></span></article></div>'
+                appendStringDemos = appendStringDemos + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '">' + item.title + '</a></span></article></div>'
               }
             }
             if (source[1] == 'tutorials') {
               if(item.link){
-                appendStringTutorials = appendStringTutorials + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '" target="_blank">' + item.title + '</a></span></article></div>'
+                appendStringTutorials = appendStringTutorials + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '">' + item.title + '</a></span></article></div>'
               } else {
-                appendStringTutorials = appendStringTutorials + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '" target="_blank">' + item.title + '</a></span></article></div>'
+                appendStringTutorials = appendStringTutorials + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '">' + item.title + '</a></span></article></div>'
               }
             }
           });
