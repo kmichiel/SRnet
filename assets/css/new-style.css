@@ -1191,17 +1191,26 @@ details {
   outline: none;
 }
 .search-input {
-  margin: 50px auto;
+  margin: 10px auto;
   padding: 10px 15px;
-  height: 37px;
+  height: 44.8px;
   border: 2px solid #1994c9;
   border-radius: 20px;
   line-height: 24px;
   letter-spacing: 1px;
+  font-size: 20px;
+  vertical-align: bottom;
 }
 .form-button {
-  margin: 80px auto;
+  margin: 10px auto;
   float: none;
+}
+#submit {
+  font-size: 18px;
+  border-width: 2px;
+}
+#site_search {
+  margin-top: 70px;
 }
 
 @media screen and (min-width: 1200px) {
