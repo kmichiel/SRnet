@@ -64,6 +64,12 @@ jQuery(function() {
         return dom_name_arr.join(".");
     }
 
+    function is_pdf_file(url) {
+        // indicate if URL is a PDF file
+	    return false;
+        return url.trim().toLowerCase().endsWith(".pdf");
+    }
+
     function display_search_results(results) {
       var $search_results = $("#search_results");
       var $hero = $(".hero-block");
@@ -93,56 +99,65 @@ jQuery(function() {
               }
               let dom_name = get_dom_name(url);
               if (dom_name.length > 0) {
-                   dom_name = " (" + dom_name + ")";
+                  dom_name = " (<i>" + dom_name + "</i>)";
               }
-              appendStringNews = appendStringNews + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ url +'">' + item.title + dom_name + '</a></span></article></div>'
+              appendStringNews = appendStringNews + '<div class="accordion-item" <article><span class="underline-on-hover"><a class="file-type" href="'+ url +'">' + item.title + dom_name + '</a></span></article></div>'
             }
 
             if (source[1] == 'scientific-papers') {
               if(item.doi) {
-                appendStringScientific = appendStringScientific + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="https://doi.org/'+ item.doi + '">' + item.title + ' (doi.org)</a></span></article></div>'
-              } else {
-                let dom_name = get_dom_name(item.eurl);
-                if (dom_name.length > 0) {
-                    dom_name = " (" + dom_name + ")";
-                }
-                appendStringScientific = appendStringScientific + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.eurl + '">' + item.title + dom_name + '</a></span></article></div>'
+		      url = "https://doi.org/" + item.doi;
+	      } else {
+		      url = item.eurl;
+	      }
+              let dom_name = get_dom_name(url);
+              if (dom_name.length > 0) {
+                  dom_name = " (<i>" + dom_name + "</i>)";
               }
+              appendStringScientific = appendStringScientific + '<div class="accordion-item" <article><span class="underline-on-hover"><a class="file-type" href="'+ url + '">' + item.title + dom_name + '</a></span></article></div>'
             }
+
             if (source[1] == 'open-software') {
               if(item.link){
-                appendStringOpen = appendStringOpen + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '">' + item.title + '</a></span></article></div>'
-              } else {
-                appendStringOpen = appendStringOpen + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '">' + item.title + '</a></span></article></div>'
-              }
+		      url = item.link;
+	      } else {
+		      url = item.url;
+	      }
+              appendStringOpen = appendStringOpen + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
             }
+
             if (source[1] == 'conferences') {
               if(item.link){
-                appendStringConferences = appendStringConferences + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '">' + item.title + '</a></span></article></div>'
-              } else {
-                appendStringConferences = appendStringConferences + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '">' + item.title + '</a></span></article></div>'
-              }
+		      url = item.link;
+	      } else {
+		      url = item.url;
+	      }
+              appendStringConferences = appendStringConferences + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
             }
+
             if (source[1] == 'demos') {
               if(item.link){
-                appendStringDemos = appendStringDemos + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '">' + item.title + '</a></span></article></div>'
-              } else {
-                appendStringDemos = appendStringDemos + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '">' + item.title + '</a></span></article></div>'
-              }
+		      url = item.link;
+	      } else {
+		      url = item.url;
+	      }
+              appendStringDemos = appendStringDemos + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
             }
+
             if (source[1] == 'tutorials') {
               if(item.link){
-                appendStringTutorials = appendStringTutorials + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.link + '">' + item.title + '</a></span></article></div>'
-              } else {
-                appendStringTutorials = appendStringTutorials + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ item.url + '">' + item.title + '</a></span></article></div>'
-              }
+		      url = item.link;
+	      } else {
+		      url = item.url;
+	      }
+              appendStringTutorials = appendStringTutorials + '<div class="accordion-item" <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
             }
           });
           $hero.remove();
           var headings = [appendStringNews, appendStringScientific, appendStringOpen, appendStringConferences, appendStringDemos, appendStringTutorials]
           headings.forEach(item => {
-            console.log(item)
-            console.log(item.length)
+            //console.log(item)
+            //console.log(item.length)
             if(item.length > maxInitialStringLength) {
               $search_results.append(item, appendClosing)
             }
