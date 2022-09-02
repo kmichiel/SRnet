@@ -7,8 +7,7 @@ title: 'NANOG 61: Egress Peer Engineering'
 technology: 'SRv6, SRMPLS'
 excerpt: 'Nanog 61: Segment Routing Centralized Egress Peer Engineering'
 header:
-  teaser: >-
-    images/tuesday_lightning_filsfils_segment.png
+  teaser: images/tuesday_lightning_filsfils_segment.png
 ---
 
 {% include pdf link="images/tuesday_lightning_filsfils_segment.pdf" %}

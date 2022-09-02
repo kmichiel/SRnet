@@ -7,8 +7,7 @@ title: 'RIPE 66: Segment Routing'
 technology: 'SRv6, SRMPLS'
 excerpt: 'RIPE 66: Segment Routing Technology and Use Cases'
 header:
-  teaser: >-
-    images/RIPE-66-Guide-to-Dublin_thumbnail.png
+  teaser: images/RIPE-66-Guide-to-Dublin_thumbnail.png
 ---
 
 ## Segment Routing - Technology and Use Cases

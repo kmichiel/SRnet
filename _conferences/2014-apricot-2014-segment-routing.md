@@ -6,7 +6,7 @@ date: '2014-09-25 22:21 -0700'
 title: 'Apricot 2014:  Segment Routing'
 technology: 'SRv6, SRMPLS'
 header:
-  teaser: >-
+  teaser: https://2014.apricot.net/images/apricot-logo-and-text_532x60.png
 excerpt: 'Apricot 2014, Petaling Jaya, Malaysia 18-28 February 2014'
 position: hidden
 ---

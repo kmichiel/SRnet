@@ -7,8 +7,7 @@ technology: 'SRv6, SRMPLS'
 title: 'IPv6 WC and MPLS WC 2013: Segment Routing'
 excerpt: 'MPLS World Congress, Ethernet World Congress and IPv6 World Congress 2013'
 header:
-  teaser: >-
-    images/MPLS-WC-2013.png
+  teaser: images/MPLS-WC-2013.png
 ---
 
 
