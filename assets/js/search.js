@@ -10,6 +10,7 @@ jQuery(function() {
       this.field('source-url');
       this.field('doi');
       this.field('link');
+      this.field('pdf2txt');
     });
 
     var base_url =  document.getElementById('base_url').getAttribute("value")
