@@ -7,6 +7,7 @@ order: 1
 category: concepts
 technology: 'SRv6, SRMPLS'
 title: Segment Routing Introduction
+pdf2txt: images/tutorials/0010-SR-TOI-SR_intro_v10.txt
 excerpt: An introduction to Segment Routing and its concepts.
 ---
 

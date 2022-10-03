@@ -7,6 +7,7 @@ order: 7
 category: ldp
 technology: 'SRv6, SRMPLS'
 title: Segment Routing and LDP interworking
+pdf2txt: images/tutorials/0070-SR-TOI-SR_LDP_interwork_v11.txt
 excerpt: >-
   Learn about the simple, automatic and seamless interworking between segment
   routing and LDP. See what the role of the Mapping Server is in the

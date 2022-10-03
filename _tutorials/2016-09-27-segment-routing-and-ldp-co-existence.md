@@ -7,6 +7,7 @@ order: 5
 category: ldp
 technology: 'SRv6, SRMPLS'
 title: Segment Routing and LDP co-existence
+pdf2txt: images/tutorials/0050-SR-TOI-SR_and_LDP_coexist_v8.txt
 excerpt: >-
   See how segment routing can co-exist with LDP and other MPLS protocols, both
   on the control plane and on the data plane. Further learn how to affect a

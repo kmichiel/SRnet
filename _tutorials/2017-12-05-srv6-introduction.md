@@ -6,6 +6,7 @@ date: '2017-12-05 22:03 +0100'
 order: 99
 category: srv6
 technology: 'SRv6'
+pdf2txt: images/tutorials/SRv6-TOI-rev3i-EXTERNAL.txt
 title: SRv6 Introduction
 ---
 An introduction to the SRv6 (Segment Routing over IPv6 dataplane) technology.
