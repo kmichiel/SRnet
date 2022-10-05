@@ -102,7 +102,7 @@ jQuery(function() {
 
           let rank = 0;
           results.forEach(function(result) {
-            console.log(result);
+            //console.log(result);
             let score = result.score;
             rank += 1;
             let ranking = '<!-- rank/score=' + rank + '/' + score + ' -->'
