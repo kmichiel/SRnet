@@ -72,6 +72,10 @@ jQuery(function() {
     }
 
     function fix_rel_url(url) {
+	if (typeof(url) !== "string") {
+	    console.log("Error: fix_rel_url received non-string argument ", url);
+	    return "https://www.segment-routing.net"
+	}
         // if url is relative, the base url must be added
         if (url.startsWith("/")) {
 		return base_url + url;
@@ -92,10 +96,16 @@ jQuery(function() {
           var appendStringConferences = '<details open><summary>Conferences</summary>';
           var appendStringDemos = '<details open><summary>Demos</summary>';
           var appendStringTutorials = '<details open><summary>Tutorials</summary>';
+          var appendStringIETF = '<details open><summary>IETF</summary>';
           var appendClosing = '</details>'
           let maxInitialStringLength = 50;
 
+          let rank = 0;
           results.forEach(function(result) {
+            console.log(result);
+            let score = result.score;
+            rank += 1;
+            let ranking = '<!-- rank/score=' + rank + '/' + score + ' -->'
             var item = loaded_data[result.ref];
             var source = item.url.split('/');
             let date_string = "";
@@ -110,17 +120,18 @@ jQuery(function() {
               let url = "";
               if (item.eurl) {
                   url = item.eurl;
-              } else {
+              } else if (item.source-url) {
                   url = item.source-url;
-              }
+              } else {
+		  url = item.url
+	      }
               url = fix_rel_url(url);
 
               let dom_name = get_dom_name(url);
               if (dom_name.length > 0) {
                   dom_name = " (<i>" + dom_name + "</i>)";
               }
-              appendStringNews = appendStringNews + '<div class="accordion-item"> <article><span class="underline-on-hover"><a class="file-type" href="'+ url +'">' + item.title + dom_name + '</a></span></article>' + date_string + '</div>'
-		    console.log(appendStringNews);
+              appendStringNews = appendStringNews + '<div class="accordion-item">' + ranking + '<article><span class="underline-on-hover"><a class="file-type" href="'+ url +'">' + item.title + dom_name + '</a></span></article>' + date_string + '</div>'
             }
 
             if (source[1] == 'scientific-papers') {
@@ -134,7 +145,7 @@ jQuery(function() {
               if (dom_name.length > 0) {
                   dom_name = " (<i>" + dom_name + "</i>)";
               }
-              appendStringScientific = appendStringScientific + '<div class="accordion-item"> <article><span class="underline-on-hover"><a class="file-type" href="'+ url + '">' + item.title + dom_name + '</a></span></article></div>'
+              appendStringScientific = appendStringScientific + '<div class="accordion-item">' + ranking + '<article><span class="underline-on-hover"><a class="file-type" href="'+ url + '">' + item.title + dom_name + '</a></span></article></div>'
             }
 
             if (source[1] == 'open-software') {
@@ -144,7 +155,7 @@ jQuery(function() {
 		      url = item.url;
 	      }
               url = fix_rel_url(url);
-              appendStringOpen = appendStringOpen + '<div class="accordion-item"> <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
+              appendStringOpen = appendStringOpen + '<div class="accordion-item">' + ranking + '<article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
             }
 
             if (source[1] == 'conferences') {
@@ -154,7 +165,7 @@ jQuery(function() {
 		      url = item.url;
 	      }
               url = fix_rel_url(url);
-              appendStringConferences = appendStringConferences + '<div class="accordion-item"> <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article>' + date_string + '</div>'
+              appendStringConferences = appendStringConferences + '<div class="accordion-item">' + ranking + '<article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article>' + date_string + '</div>'
             }
 
             if (source[1] == 'demos') {
@@ -164,7 +175,7 @@ jQuery(function() {
 		      url = item.url;
 	      }
               url = fix_rel_url(url);
-              appendStringDemos = appendStringDemos + '<div class="accordion-item"> <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
+              appendStringDemos = appendStringDemos + '<div class="accordion-item">' + ranking + '<article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
             }
 
             if (source[1] == 'tutorials') {
@@ -174,11 +185,24 @@ jQuery(function() {
 		      url = item.url;
 	      }
               url = fix_rel_url(url);
-              appendStringTutorials = appendStringTutorials + '<div class="accordion-item"> <article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
+              appendStringTutorials = appendStringTutorials + '<div class="accordion-item">' + ranking + '<article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + '</a></span></article></div>'
+            }
+
+            if (source.length > 2 && source[2] == 'datatracker.ietf.org') {
+              url = fix_rel_url(item.url);
+	      status = item.link;
+              let dom_name = get_dom_name(url);
+              if (dom_name.length > 0) {
+                  dom_name = " (<i>" + dom_name + "</i>)";
+              }
+	      if (status.length > 0) {
+	          status = "<div class=\"rfc-status\">" + status + "</div>";
+	      }
+              appendStringIETF = appendStringIETF + '<div class="accordion-item">' + ranking + '<article><span class="underline-on-hover"><a href="'+ url + '">' + item.title + dom_name + '</a></span></article>' + status + '</div>'
             }
           });
           $hero.remove();
-          var headings = [appendStringNews, appendStringScientific, appendStringOpen, appendStringConferences, appendStringDemos, appendStringTutorials]
+          var headings = [appendStringNews, appendStringScientific, appendStringOpen, appendStringConferences, appendStringDemos, appendStringTutorials, appendStringIETF]
           headings.forEach(item => {
             //console.log(item)
             //console.log(item.length)

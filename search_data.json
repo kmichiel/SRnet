@@ -140,5 +140,29 @@ layout: null
     {% unless forloop.last %}{% unless post.position == "hidden" or post.published == "false" %},{% endunless %}{% endunless %}
   {% endfor %}
   {% unless tutorial_cnt == 0 %},{% endunless %}
+
+  {% assign catlist = "list_architecture, list_srv6, list_srmpls, list_usecases, list_deploy, list_frr, list_network_resource_partitioning, list_pm, list_oam, list_path_tracing, list_service_programming, list_bgp, list_bgp_ls, list_isis, list_ospf, list_pcep, list_mcast, list_yang" | split:", " %}
+
+  {% assign ietf_cnt = 0 %}
+  {% for category in catlist %}
+    {% for post in site.data.ietf[category] %}
+      {% assign ietf_cnt = ietf_cnt | plus: 1 %}
+      {% comment %}
+      1. abusing "link" field to contain IETF status
+      2. we can probably add the RFC/draft abstract as "content" here
+      {% endcomment %}
+      "{{ post.title | prepend:"ietf-" | slugify }}": {
+        "title": "{{ post.title | xml_escape }}",
+        "url": "{{ post.url | xml_escape }}",
+        "link": "{{ post.status | xml_escape }}"
+      }
+      {% unless forloop.last %},{% endunless %}
+    {% endfor %}
+    {% unless forloop.last %},{% endunless %}
+  {% endfor %}
+{% unless ietf_cnt == 0 %},{% endunless %}
+
+
+
   "#": {}
 }
